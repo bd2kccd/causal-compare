@@ -18,7 +18,19 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
+import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.pitt.dbmi.causal.compare.conf.Configurations;
+import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
+import edu.pitt.dbmi.causal.compare.conf.SimulationSource;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import javax.xml.bind.JAXBException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 /**
  *
@@ -28,13 +40,66 @@ import org.junit.Test;
  */
 public class CausalCompareApplicationTest {
 
+    @Rule
+    public final TemporaryFolder tmpFolder = new TemporaryFolder();
+
     /**
      * Test of main method, of class CausalCompareApplication.
+     *
+     * @throws IOException
      */
     @Test
-    public void testMain() {
-        String[] args = null;
+    public void testMain() throws IOException {
+        String configFile = getClass().getResource("/data/comparison-tool.xml").getFile();
+        String dirOut = tmpFolder.newFolder("comparison").toString();
+        String[] args = {
+            "--config", configFile,
+            "--out", dirOut
+        };
         CausalCompareApplication.main(args);
+
+        System.out.println("================================================================================");
+        Files.list(Paths.get(dirOut))
+                .filter(Files::isRegularFile)
+                .forEach(e -> {
+                    try (Stream<String> stream = Files.lines(e)) {
+                        stream.forEach(System.out::println);
+                    } catch (IOException exception) {
+                        exception.printStackTrace(System.err);
+                    }
+                });
+        System.out.println("================================================================================");
+    }
+
+    @Test
+    public void testCreateXMLConfig() {
+        System.out.println("================================================================================");
+        try {
+            System.out.println(Configurations.marshal(createSampleConfiguration()));
+        } catch (JAXBException exception) {
+            exception.printStackTrace(System.err);
+        }
+        System.out.println("================================================================================");
+    }
+
+    private static Configuration createSampleConfiguration() {
+        Configuration config = new Configuration();
+
+        SimulationConfig genSimConfig = new SimulationConfig();
+        genSimConfig.setSource(SimulationSource.generate);
+        genSimConfig.setGraphType("RandomForward");
+        genSimConfig.setModelType("SemSimulation");
+
+        SimulationConfig fileSimeConfig = new SimulationConfig();
+        fileSimeConfig.setSource(SimulationSource.file);
+        fileSimeConfig.setDataFile("data.txt");
+        fileSimeConfig.setTrueGraphFile("graph.txt");
+        config.setSimulationConfigs(Arrays.asList(
+                genSimConfig,
+                fileSimeConfig
+        ));
+
+        return config;
     }
 
 }

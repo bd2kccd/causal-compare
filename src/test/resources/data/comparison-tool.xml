@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comparisontool>
+    <simulations>
+        <simulation source="generate">
+            <graphtype>RandomForward</graphtype>
+            <modeltype>SemSimulation</modeltype>
+        </simulation>
+        <simulation source="file">
+            <data>src/test/resources/data/data_sim_10var_1kcase.txt</data>
+            <truegraph>src/test/resources/data/graph_sim_10var_1kcase.txt</truegraph>
+        </simulation>
+    </simulations>
+</comparisontool>

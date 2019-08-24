@@ -18,6 +18,12 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
+import edu.pitt.dbmi.causal.compare.tetrad.AlgorithmModels;
+import edu.pitt.dbmi.causal.compare.valid.ConfigurationValidations;
+import edu.pitt.dbmi.causal.compare.valid.ValidationException;
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  *
  * Aug 14, 2019 4:55:44 PM
@@ -30,6 +36,34 @@ public class CausalCompareApplication {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        args = cleanArgs(args);
+
+        CmdArgs cmdArgs = new CmdArgs();
+        try {
+            CmdParser.parse(args, cmdArgs);
+        } catch (CmdParserException exception) {
+            System.err.println(exception.getCause().getMessage());
+            Applications.showHelp(args, exception.getOptions());
+            System.exit(-1);
+        }
+
+        AlgorithmModels.getInstance();
+        try {
+            ConfigurationValidations.validate(cmdArgs.getConfiguration());
+        } catch (ValidationException exception) {
+            System.err.println(exception.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    private static String[] cleanArgs(String[] args) {
+        return (args == null)
+                ? new String[0]
+                : Arrays.stream(args)
+                        .filter(Objects::nonNull)
+                        .map(String::trim)
+                        .filter(e -> !e.isEmpty())
+                        .toArray(String[]::new);
     }
 
 }
