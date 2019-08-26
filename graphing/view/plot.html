@@ -1,0 +1,35 @@
+<br><br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"> 
+            <uib-accordion close-others="false">
+                <div uib-accordion-group class="panel-default" heading="Algorithm" ng-show="showPackage()">
+                    <div uib-accordion-group class="panel-default" heading="{{package.package}}" ng-repeat="package in packages">
+                        <div ng-repeat="algorithm in package.algorithms">
+                            <input type="checkbox" ng-change="plot()" ng-model="algorithm.active"> {{algorithm.value}}
+                        </div> 
+                    </div>    
+                </div>
+                <div uib-accordion-group class="panel-default" heading="Algorithm" ng-show="showAlgorithm()">
+                    <div ng-repeat="algorithm in algorithms">
+                        <input type="checkbox" ng-change="plot()" ng-model="algorithm.active"> {{algorithm.value}}
+                    </div> 
+                </div>  
+                <div uib-accordion-group class="panel-default" heading="{{headings[parameter.parameter]}}" ng-repeat="parameter in parameters">
+                    <div ng-repeat="value in parameter.values">
+                        <input type="checkbox" ng-change="plot()" ng-model="value.active"> {{value.value}}
+                    </div> 
+                </div>
+                <div uib-accordion-group class="panel-default" heading="Statistics" ng-show="showStatistics()">
+                    <div ng-repeat="statistic in statistics">
+                        <input type="checkbox" ng-change="plot()" ng-model="statistic.active"> {{headings[statistic.value]}}
+                    </div> 
+                </div>  
+            </uib-accordion>
+        </div>
+        <div class="col-sm-10" style="height:80vw;">
+            <div id="statisticsResults" style="height:50%;"></div>
+            <div id="timeResults" style="height:50%;"></div>
+        </div>
+    </div>
+</div>
