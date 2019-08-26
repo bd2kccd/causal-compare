@@ -18,23 +18,35 @@
  */
 package edu.pitt.dbmi.causal.compare.valid;
 
-import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.pitt.dbmi.causal.compare.tetrad.StatisticModels;
+import java.util.List;
 
 /**
  *
- * Aug 24, 2019 11:54:46 AM
+ * Aug 26, 2019 6:01:46 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class ConfigurationValidations {
+public final class StatisticConfigValidations extends AbstractValidations {
 
-    private ConfigurationValidations() {
+    private StatisticConfigValidations() {
     }
 
-    public static void validate(Configuration config) throws ValidationException {
-        SimulationConfigValidations.validate(config.getSimulationConfigs());
-        AlgorithmConfigValidations.validate(config.getAlgorithmConfigs());
-        StatisticConfigValidations.validate(config.getStatistics());
+    public static void validate(List<String> statistics) throws ValidationException {
+        if (statistics == null || statistics.isEmpty()) {
+            throw new ValidationException("XML tag <statistics> is required.");
+        }
+
+        StatisticModels statModes = StatisticModels.getInstance();
+        for (String stat : statistics) {
+            stat = clean(stat);
+            if (stat.isEmpty()) {
+                throw new ValidationException("XML tag <statistic> and value are required.");
+            }
+            if (!statModes.hasClass(stat)) {
+                throw new ValidationException(String.format("No such statistic \"%s\".", stat));
+            }
+        }
     }
 
 }

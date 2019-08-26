@@ -16,25 +16,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare.valid;
+package edu.pitt.dbmi.causal.compare.tetrad;
 
-import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.cmu.tetrad.algcomparison.statistic.Statistic;
 
 /**
  *
- * Aug 24, 2019 11:54:46 AM
+ * Aug 26, 2019 5:40:38 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class ConfigurationValidations {
+public class StatisticModels extends AbstractClassFactory<Statistic> {
 
-    private ConfigurationValidations() {
+    private static final StatisticModels INSTANCE = new StatisticModels();
+
+    private StatisticModels() {
+        super("edu.cmu.tetrad.algcomparison.statistic", Statistic.class);
     }
 
-    public static void validate(Configuration config) throws ValidationException {
-        SimulationConfigValidations.validate(config.getSimulationConfigs());
-        AlgorithmConfigValidations.validate(config.getAlgorithmConfigs());
-        StatisticConfigValidations.validate(config.getStatistics());
+    public static StatisticModels getInstance() {
+        return INSTANCE;
     }
 
 }

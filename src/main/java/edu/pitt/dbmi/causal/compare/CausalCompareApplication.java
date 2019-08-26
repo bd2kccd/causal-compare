@@ -18,7 +18,6 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
-import edu.pitt.dbmi.causal.compare.tetrad.AlgorithmModels;
 import edu.pitt.dbmi.causal.compare.valid.ConfigurationValidations;
 import edu.pitt.dbmi.causal.compare.valid.ValidationException;
 import java.util.Arrays;
@@ -47,7 +46,6 @@ public class CausalCompareApplication {
             System.exit(-1);
         }
 
-        AlgorithmModels.getInstance();
         try {
             ConfigurationValidations.validate(cmdArgs.getConfiguration());
         } catch (ValidationException exception) {

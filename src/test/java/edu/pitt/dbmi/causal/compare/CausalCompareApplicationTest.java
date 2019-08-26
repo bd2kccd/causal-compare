@@ -18,6 +18,7 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
+import edu.pitt.dbmi.causal.compare.conf.AlgorithmConfig;
 import edu.pitt.dbmi.causal.compare.conf.Configuration;
 import edu.pitt.dbmi.causal.compare.conf.Configurations;
 import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
@@ -92,11 +93,21 @@ public class CausalCompareApplicationTest {
 
         SimulationConfig fileSimeConfig = new SimulationConfig();
         fileSimeConfig.setSource(SimulationSource.file);
-        fileSimeConfig.setDataFile("data.txt");
-        fileSimeConfig.setTrueGraphFile("graph.txt");
+        fileSimeConfig.setDataFile("src/test/resources/data/data_sim_10var_1kcase.txt");
+        fileSimeConfig.setTrueGraphFile("src/test/resources/data/graph_sim_10var_1kcase.txt");
         config.setSimulationConfigs(Arrays.asList(
                 genSimConfig,
                 fileSimeConfig
+        ));
+
+        config.setAlgorithmConfigs(Arrays.asList(
+                new AlgorithmConfig("fges", "sem-bic")
+        ));
+
+        config.setStatistics(Arrays.asList(
+                "adjacencyprecision",
+                "arrowheadrecall",
+                "adjacencyrecall"
         ));
 
         return config;

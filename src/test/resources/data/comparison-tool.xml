@@ -10,4 +10,14 @@
             <truegraph>src/test/resources/data/graph_sim_10var_1kcase.txt</truegraph>
         </simulation>
     </simulations>
+    <algorithms>
+        <algorithm name="fges">
+            <score>sem-bic</score>
+        </algorithm>
+    </algorithms>
+    <statistics>
+        <statistic>adjacencyprecision</statistic>
+        <statistic>arrowheadrecall</statistic>
+        <statistic>adjacencyrecall</statistic>
+    </statistics>
 </comparisontool>

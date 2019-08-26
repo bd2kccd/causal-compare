@@ -40,4 +40,12 @@ public final class AlgorithmModels extends AbstractAnnotatedClassFactory {
         return INSTANCE;
     }
 
+    public boolean requireIndependenceTest(Class clazz) {
+        return AlgorithmAnnotations.getInstance().requireIndependenceTest(clazz);
+    }
+
+    public boolean requireScore(Class clazz) {
+        return AlgorithmAnnotations.getInstance().requireScore(clazz);
+    }
+
 }

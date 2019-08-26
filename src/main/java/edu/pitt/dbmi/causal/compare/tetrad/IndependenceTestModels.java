@@ -16,25 +16,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare.valid;
+package edu.pitt.dbmi.causal.compare.tetrad;
 
-import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.cmu.tetrad.annotation.TestOfIndependenceAnnotations;
+import java.util.stream.Collectors;
 
 /**
  *
- * Aug 24, 2019 11:54:46 AM
+ * Aug 26, 2019 11:02:13 AM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class ConfigurationValidations {
+public final class IndependenceTestModels extends AbstractAnnotatedClassFactory {
 
-    private ConfigurationValidations() {
+    private static final IndependenceTestModels INSTANCE = new IndependenceTestModels();
+
+    public IndependenceTestModels() {
+        super(TestOfIndependenceAnnotations.getInstance().getAnnotatedClasses().stream()
+                .collect(Collectors.toMap(e -> e.getAnnotation().command(), e -> e.getClazz())));
     }
 
-    public static void validate(Configuration config) throws ValidationException {
-        SimulationConfigValidations.validate(config.getSimulationConfigs());
-        AlgorithmConfigValidations.validate(config.getAlgorithmConfigs());
-        StatisticConfigValidations.validate(config.getStatistics());
+    public static IndependenceTestModels getInstance() {
+        return INSTANCE;
     }
 
 }

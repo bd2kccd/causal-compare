@@ -43,6 +43,10 @@ public class Configuration {
     @XmlElement(name = "algorithm")
     private List<AlgorithmConfig> algorithmConfigs;
 
+    @XmlElementWrapper(name = "statistics")
+    @XmlElement(name = "statistic")
+    private List<String> statistics;
+
     public Configuration() {
     }
 
@@ -60,6 +64,14 @@ public class Configuration {
 
     public void setAlgorithmConfigs(List<AlgorithmConfig> algorithmConfigs) {
         this.algorithmConfigs = algorithmConfigs;
+    }
+
+    public List<String> getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(List<String> statistics) {
+        this.statistics = statistics;
     }
 
 }

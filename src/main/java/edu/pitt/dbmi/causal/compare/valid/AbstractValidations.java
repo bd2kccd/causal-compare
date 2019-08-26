@@ -18,23 +18,16 @@
  */
 package edu.pitt.dbmi.causal.compare.valid;
 
-import edu.pitt.dbmi.causal.compare.conf.Configuration;
-
 /**
  *
- * Aug 24, 2019 11:54:46 AM
+ * Aug 26, 2019 12:05:47 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class ConfigurationValidations {
+public abstract class AbstractValidations {
 
-    private ConfigurationValidations() {
-    }
-
-    public static void validate(Configuration config) throws ValidationException {
-        SimulationConfigValidations.validate(config.getSimulationConfigs());
-        AlgorithmConfigValidations.validate(config.getAlgorithmConfigs());
-        StatisticConfigValidations.validate(config.getStatistics());
+    protected static String clean(String value) {
+        return (value == null) ? "" : value.trim().toLowerCase();
     }
 
 }
