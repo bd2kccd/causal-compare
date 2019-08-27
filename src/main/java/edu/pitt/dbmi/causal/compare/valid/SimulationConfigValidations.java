@@ -25,7 +25,9 @@ import edu.pitt.dbmi.causal.compare.tetrad.SimulationModelTypes;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -38,57 +40,86 @@ public final class SimulationConfigValidations extends AbstractValidations {
     private SimulationConfigValidations() {
     }
 
-    public static void validate(List<SimulationConfig> simulationConfigs) throws ValidationException {
-        for (SimulationConfig config : simulationConfigs) {
+    public static void validate(List<SimulationConfig> configs) throws ValidationException {
+        if (configs == null) {
+            throw new ValidationException("Element <simulations> is required.");
+        }
+        if (configs.isEmpty()) {
+            throw new ValidationException("Parent element <simulations> requires child element <simulation>.");
+        }
+        for (SimulationConfig config : configs) {
             SimulationSource source = config.getSource();
             if (source == null) {
-                throw new ValidationException("Simulation requires value for attribute 'source'.");
+                String values = Arrays.stream(SimulationSource.values()).map(SimulationSource::name).collect(Collectors.joining(","));
+                String errMsg = String.format("Element <simulation> requires 'source' attribute and one of the following values: %s.", values);
+                throw new ValidationException(errMsg);
             }
 
             switch (source) {
-                case file:
-                    validateDataFile(clean(config.getDataFile()));
-                    validateTrueGraphFile(clean(config.getTrueGraphFile()));
-                    break;
                 case generate:
-                    validateGraphType(clean(config.getGraphType()));
-                    validateModelType(clean(config.getModelType()));
+                    validateGraphType(config.getGraphType());
+                    validateModelType(config.getModelType());
+                    break;
+                case file:
+                    validateDataFile(config.getDataFile());
+                    validateTrueGraphFile(config.getTrueGraphFile());
                     break;
             }
         }
     }
 
     private static void validateTrueGraphFile(String trueGraphFile) throws ValidationException {
+        if (trueGraphFile == null) {
+            throw new ValidationException("Element <truegraph> is required for simulation source of type 'file'.");
+        }
+        trueGraphFile = trueGraphFile.trim().toLowerCase();
         if (trueGraphFile.isEmpty()) {
-            throw new ValidationException("Simulation of type 'file' requires attribute 'truegraph' and value.");
+            throw new ValidationException("Element <truegraph> requires value.");
         }
 
         validateFile(Paths.get(trueGraphFile));
     }
 
     private static void validateDataFile(String dataFile) throws ValidationException {
+        if (dataFile == null) {
+            throw new ValidationException("Element <data> is required for simulation source of type 'file'.");
+        }
+
+        dataFile = dataFile.trim().toLowerCase();
         if (dataFile.isEmpty()) {
-            throw new ValidationException("Simulation of type 'file' requires attribute 'data' and value.");
+            throw new ValidationException("Element <data> requires value.");
         }
 
         validateFile(Paths.get(dataFile));
     }
 
-    private static void validateGraphType(String graphType) throws ValidationException {
-        if (graphType.isEmpty()) {
-            throw new ValidationException("Simulation of type 'generate' requires attribute 'graphType' and value.");
+    private static void validateModelType(String modelType) throws ValidationException {
+        if (modelType == null) {
+            throw new ValidationException("Element <modelType> is required for simulation source of type 'generate'.");
         }
-        if (!SimulationGraphTypes.getInstance().hasClass(graphType)) {
-            throw new ValidationException(String.format("No such graph type \"%s\".", graphType));
+
+        modelType = modelType.trim().toLowerCase();
+        if (modelType.isEmpty()) {
+            throw new ValidationException("Element <modelType> requires value.");
+        }
+
+        if (!SimulationModelTypes.getInstance().hasClass(modelType)) {
+            throw new ValidationException(String.format("No such graph type \"%s\".", modelType));
         }
     }
 
-    private static void validateModelType(String modelType) throws ValidationException {
-        if (modelType.isEmpty()) {
-            throw new ValidationException("Simulation of type 'generate' requires attribute 'modeltype' and value.");
+    private static void validateGraphType(String graphType) throws ValidationException {
+        if (graphType == null) {
+            throw new ValidationException("Element <graphtype> is required for simulation source of type 'generate'.");
         }
-        if (!SimulationModelTypes.getInstance().hasClass(modelType)) {
-            throw new ValidationException(String.format("No such model type \"%s\".", modelType));
+
+        graphType = graphType.trim().toLowerCase();
+        if (graphType.isEmpty()) {
+            throw new ValidationException("Element <graphtype> requires value.");
+        }
+
+        if (!SimulationGraphTypes.getInstance().hasClass(graphType)) {
+            throw new ValidationException(String.format("No such graph type \"%s\".", graphType));
         }
     }
 

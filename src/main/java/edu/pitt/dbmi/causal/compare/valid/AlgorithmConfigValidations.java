@@ -35,44 +35,80 @@ public final class AlgorithmConfigValidations extends AbstractValidations {
     private AlgorithmConfigValidations() {
     }
 
-    public static void validate(List<AlgorithmConfig> algorithmConfigs) throws ValidationException {
-        for (AlgorithmConfig config : algorithmConfigs) {
-            String algo = clean(config.getName());
-            if (algo.isEmpty()) {
-                throw new ValidationException("Algorithm requires value for attribute 'name'.");
-            }
+    public static void validate(List<AlgorithmConfig> configs) throws ValidationException {
+        if (configs == null) {
+            throw new ValidationException("Element <algorithms> is required.");
+        }
+        if (configs.isEmpty()) {
+            throw new ValidationException("Parent element <algorithms> requires child element <algorithm>.");
+        }
+
+        for (AlgorithmConfig config : configs) {
+            String algoName = getAlgorithmName(config);
 
             AlgorithmModels algoModels = AlgorithmModels.getInstance();
-            if (!algoModels.hasClass(algo)) {
-                throw new ValidationException(String.format("No such algorithm name \"%s\".", algo));
+            if (!algoModels.hasClass(algoName)) {
+                throw new ValidationException(String.format("No such algorithm name \"%s\".", algoName));
             }
 
-            Class algoClass = algoModels.getClass(algo);
-
-            String indTest = clean(config.getTest());
-            if (algoModels.requireIndependenceTest(algoClass)) {
-                if (indTest.isEmpty()) {
-                    throw new ValidationException(String.format("XML tag 'test' and value is required algorithm \"%s\".", algo));
-                }
-                if (!IndependenceTestModels.getInstance().hasClass(indTest)) {
-                    throw new ValidationException(String.format("No such test of independence \"%s\".", indTest));
-                }
-            } else if (!indTest.isEmpty()) {
-                throw new ValidationException(String.format("algorithm \"%s\" does not take test of independence.", algo));
-            }
-
-            String score = clean(config.getScore());
-            if (algoModels.requireScore(algoClass)) {
-                if (score.isEmpty()) {
-                    throw new ValidationException(String.format("XML tag 'score' and value is required algorithm \"%s\".", algo));
-                }
-                if (!ScoreModels.getInstance().hasClass(score)) {
-                    throw new ValidationException(String.format("No such score \"%s\".", score));
-                }
-            } else if (!score.isEmpty()) {
-                throw new ValidationException(String.format("algorithm \"%s\" does not take score.", algo));
-            }
+            Class algoClass = algoModels.getClass(algoName);
+            validateTestOfIndependence(algoClass, config);
+            validateScore(algoClass, config);
         }
+    }
+
+    private static void validateScore(Class algoClass, AlgorithmConfig config) throws ValidationException {
+        String score = config.getScore();
+        if (AlgorithmModels.getInstance().requireScore(algoClass)) {
+            if (score == null) {
+                throw new ValidationException(String.format("Element <score> is required for algorithm \"%s\".", config.getName()));
+            }
+
+            score = score.trim().toLowerCase();
+            if (score.isEmpty()) {
+                throw new ValidationException("Element <score> requires value.");
+            }
+
+            if (!ScoreModels.getInstance().hasClass(score)) {
+                throw new ValidationException(String.format("No such score \"%s\".", score));
+            }
+        } else if (!(score == null || score.trim().isEmpty())) {
+            throw new ValidationException(String.format("Algorithm \"%s\" does not take score.", config.getName()));
+        }
+    }
+
+    private static void validateTestOfIndependence(Class algoClass, AlgorithmConfig config) throws ValidationException {
+        String indTest = config.getTest();
+        if (AlgorithmModels.getInstance().requireIndependenceTest(algoClass)) {
+            if (indTest == null) {
+                throw new ValidationException(String.format("Element <test> is required for algorithm \"%s\".", config.getName()));
+            }
+
+            indTest = indTest.trim().toLowerCase();
+            if (indTest.isEmpty()) {
+                throw new ValidationException("Element <test> requires value.");
+            }
+
+            if (!IndependenceTestModels.getInstance().hasClass(indTest)) {
+                throw new ValidationException(String.format("No such test of independence \"%s\".", indTest));
+            }
+        } else if (!(indTest == null || indTest.trim().isEmpty())) {
+            throw new ValidationException(String.format("Algorithm \"%s\" does not take test of independence.", config.getName()));
+        }
+    }
+
+    private static String getAlgorithmName(AlgorithmConfig config) throws ValidationException {
+        String name = config.getName();
+        if (name == null) {
+            throw new ValidationException("Element <algorithm> requires 'name' attribute.");
+        }
+
+        name = name.trim();
+        if (name.isEmpty()) {
+            throw new ValidationException("Attribute 'name' requires value.");
+        }
+
+        return name;
     }
 
 }

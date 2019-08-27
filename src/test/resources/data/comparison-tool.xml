@@ -11,6 +11,10 @@
         </simulation>
     </simulations>
     <algorithms>
+        <algorithm name="gfci">
+            <test>fisher-z-test</test>
+            <score>sem-bic</score>
+        </algorithm>
         <algorithm name="fges">
             <score>sem-bic</score>
         </algorithm>

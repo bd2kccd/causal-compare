@@ -32,16 +32,18 @@ public final class StatisticConfigValidations extends AbstractValidations {
     private StatisticConfigValidations() {
     }
 
-    public static void validate(List<String> statistics) throws ValidationException {
-        if (statistics == null || statistics.isEmpty()) {
-            throw new ValidationException("XML tag <statistics> is required.");
+    public static void validate(List<String> stats) throws ValidationException {
+        if (stats == null) {
+            throw new ValidationException("Element <statistics> is required.");
+        }
+        if (stats.isEmpty()) {
+            throw new ValidationException("Parent element <statistics> requires child element <statistic>.");
         }
 
         StatisticModels statModes = StatisticModels.getInstance();
-        for (String stat : statistics) {
-            stat = clean(stat);
+        for (String stat : stats) {
             if (stat.isEmpty()) {
-                throw new ValidationException("XML tag <statistic> and value are required.");
+                throw new ValidationException("Element <statistic> requires value.");
             }
             if (!statModes.hasClass(stat)) {
                 throw new ValidationException(String.format("No such statistic \"%s\".", stat));

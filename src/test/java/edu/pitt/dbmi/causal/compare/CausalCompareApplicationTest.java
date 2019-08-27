@@ -101,7 +101,8 @@ public class CausalCompareApplicationTest {
         ));
 
         config.setAlgorithmConfigs(Arrays.asList(
-                new AlgorithmConfig("fges", "sem-bic")
+                new AlgorithmConfig("gfci", "fisher-z", "sem-bic"),
+                new AlgorithmConfig("fges", null, "sem-bic")
         ));
 
         config.setStatistics(Arrays.asList(

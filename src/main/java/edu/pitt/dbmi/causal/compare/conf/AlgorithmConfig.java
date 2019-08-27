@@ -46,9 +46,8 @@ public class AlgorithmConfig {
     public AlgorithmConfig() {
     }
 
-    public AlgorithmConfig(String name, String score) {
+    public AlgorithmConfig(String name) {
         this.name = name;
-        this.score = score;
     }
 
     public AlgorithmConfig(String name, String test, String score) {
