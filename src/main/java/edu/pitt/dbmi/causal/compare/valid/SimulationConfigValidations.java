@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class SimulationConfigValidations extends AbstractValidations {
+public final class SimulationConfigValidations {
 
     private SimulationConfigValidations() {
     }

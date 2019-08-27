@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class StatisticConfigValidations extends AbstractValidations {
+public final class StatisticConfigValidations {
 
     private StatisticConfigValidations() {
     }

@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class AlgorithmConfigValidations extends AbstractValidations {
+public final class AlgorithmConfigValidations {
 
     private AlgorithmConfigValidations() {
     }
