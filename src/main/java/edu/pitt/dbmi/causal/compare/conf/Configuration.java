@@ -47,6 +47,10 @@ public class Configuration {
     @XmlElement(name = "statistic")
     private List<String> statistics;
 
+    @XmlElementWrapper(name = "parameters")
+    @XmlElement(name = "parameter")
+    private List<ParameterConfig> parameters;
+
     public Configuration() {
     }
 
@@ -72,6 +76,14 @@ public class Configuration {
 
     public void setStatistics(List<String> statistics) {
         this.statistics = statistics;
+    }
+
+    public List<ParameterConfig> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<ParameterConfig> parameters) {
+        this.parameters = parameters;
     }
 
 }

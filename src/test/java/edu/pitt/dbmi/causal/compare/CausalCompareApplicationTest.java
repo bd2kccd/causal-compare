@@ -18,9 +18,11 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
+import edu.cmu.tetrad.util.Params;
 import edu.pitt.dbmi.causal.compare.conf.AlgorithmConfig;
 import edu.pitt.dbmi.causal.compare.conf.Configuration;
 import edu.pitt.dbmi.causal.compare.conf.Configurations;
+import edu.pitt.dbmi.causal.compare.conf.ParameterConfig;
 import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
 import edu.pitt.dbmi.causal.compare.conf.SimulationSource;
 import java.io.IOException;
@@ -109,6 +111,12 @@ public class CausalCompareApplicationTest {
                 "adjacencyprecision",
                 "arrowheadrecall",
                 "adjacencyrecall"
+        ));
+
+        config.setParameters(Arrays.asList(
+                new ParameterConfig(Params.NUM_RUNS, "1"),
+                new ParameterConfig(Params.NUM_MEASURES, "4,6"),
+                new ParameterConfig(Params.AVG_DEGREE, "4")
         ));
 
         return config;

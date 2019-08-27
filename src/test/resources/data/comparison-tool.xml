@@ -24,4 +24,9 @@
         <statistic>arrowheadrecall</statistic>
         <statistic>adjacencyrecall</statistic>
     </statistics>
+    <parameters>
+        <parameter name="numRuns" value="1"/>
+        <parameter name="numMeasures" value="4,6" />
+        <parameter name="avgDegree" value="4" />
+    </parameters>
 </comparisontool>
