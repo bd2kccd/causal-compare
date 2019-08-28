@@ -45,7 +45,6 @@ public final class ParameterConfigValidations {
                 if (name == null) {
                     throw new ValidationException("Element <parameter> requires 'name' attribute.");
                 }
-
                 if (name.trim().isEmpty()) {
                     throw new ValidationException("Attribute 'name' requires value.");
                 }

@@ -19,13 +19,12 @@
 package edu.pitt.dbmi.causal.compare;
 
 import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.pitt.dbmi.causal.compare.conf.Configurations;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
@@ -70,9 +69,7 @@ public final class CmdParser {
         }
 
         try {
-            JAXBContext context = JAXBContext.newInstance(Configuration.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            cmdArgs.configuration = (Configuration) unmarshaller.unmarshal(configFile.toFile());
+            cmdArgs.configuration = (Configuration) Configurations.umarshal(configFile);
         } catch (JAXBException exception) {
             exception.printStackTrace(System.err);
             throw new CmdParserException(options, exception);

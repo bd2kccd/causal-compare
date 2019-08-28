@@ -36,6 +36,7 @@ public final class ConfigurationValidations {
         AlgorithmConfigValidations.validate(config.getAlgorithmConfigs());
         StatisticConfigValidations.validate(config.getStatistics());
         ParameterConfigValidations.validate(config.getParameters());
+        ComparisonPropertyValidations.validate(config.getComparisonProperties());
     }
 
 }
