@@ -18,7 +18,13 @@
  */
 package edu.pitt.dbmi.causal.compare.tetrad;
 
+import edu.cmu.tetrad.algcomparison.algorithm.Algorithm;
+import edu.cmu.tetrad.algcomparison.algorithm.AlgorithmFactory;
+import edu.cmu.tetrad.algcomparison.algorithm.Algorithms;
 import edu.cmu.tetrad.annotation.AlgorithmAnnotations;
+import edu.pitt.dbmi.causal.compare.ComparisonException;
+import edu.pitt.dbmi.causal.compare.conf.AlgorithmConfig;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +33,7 @@ import java.util.stream.Collectors;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class AlgorithmModels extends AbstractAnnotatedClassFactory {
+public final class AlgorithmModels extends AbstractAnnotatedClassFactory<Algorithm> {
 
     private static final AlgorithmModels INSTANCE = new AlgorithmModels();
 
@@ -46,6 +52,26 @@ public final class AlgorithmModels extends AbstractAnnotatedClassFactory {
 
     public boolean requireScore(Class clazz) {
         return AlgorithmAnnotations.getInstance().requireScore(clazz);
+    }
+
+    public Algorithm create(AlgorithmConfig config) throws ComparisonException {
+        try {
+            return AlgorithmFactory.create(
+                    getClass(config.getName()),
+                    IndependenceTestModels.getInstance().getClass(config.getTest()),
+                    ScoreModels.getInstance().getClass(config.getScore()));
+        } catch (IllegalAccessException | InstantiationException exception) {
+            throw new ComparisonException(exception);
+        }
+    }
+
+    public Algorithms create(List<AlgorithmConfig> configs) throws ComparisonException {
+        Algorithms algorithms = new Algorithms();
+        for (AlgorithmConfig config : configs) {
+            algorithms.add(create(config));
+        }
+
+        return algorithms;
     }
 
 }

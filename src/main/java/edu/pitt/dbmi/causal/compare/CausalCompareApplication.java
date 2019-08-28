@@ -18,6 +18,9 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
+import edu.cmu.tetrad.algcomparison.algorithm.Algorithms;
+import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.pitt.dbmi.causal.compare.tetrad.AlgorithmModels;
 import edu.pitt.dbmi.causal.compare.valid.ConfigurationValidations;
 import edu.pitt.dbmi.causal.compare.valid.ValidationException;
 import java.util.Arrays;
@@ -52,6 +55,19 @@ public class CausalCompareApplication {
             System.err.println(exception.getLocalizedMessage());
             System.exit(-1);
         }
+
+        try {
+            runComparisonTool(cmdArgs);
+        } catch (Exception exception) {
+            System.err.println(exception.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
+    private static void runComparisonTool(CmdArgs cmdArgs) throws Exception {
+        Configuration config = cmdArgs.getConfiguration();
+
+        Algorithms algorithms = AlgorithmModels.getInstance().create(config.getAlgorithmConfigs());
     }
 
     private static String[] cleanArgs(String[] args) {

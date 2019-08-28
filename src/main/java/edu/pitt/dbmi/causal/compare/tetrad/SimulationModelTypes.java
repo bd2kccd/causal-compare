@@ -26,7 +26,7 @@ import edu.cmu.tetrad.algcomparison.simulation.Simulation;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class SimulationModelTypes extends AbstractClassFactory<Simulation> {
+public final class SimulationModelTypes extends AbstractClassFactory<Simulation> {
 
     private static final SimulationModelTypes INSTANCE = new SimulationModelTypes();
 

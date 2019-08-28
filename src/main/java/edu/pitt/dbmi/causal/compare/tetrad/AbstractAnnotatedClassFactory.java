@@ -26,11 +26,11 @@ import java.util.Map;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public abstract class AbstractAnnotatedClassFactory {
+public abstract class AbstractAnnotatedClassFactory<T> {
 
-    protected final Map<String, Class<?>> classMap;
+    protected final Map<String, Class<? extends T>> classMap;
 
-    public AbstractAnnotatedClassFactory(Map<String, Class<?>> classMap) {
+    public AbstractAnnotatedClassFactory(Map<String, Class<? extends T>> classMap) {
         this.classMap = classMap;
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractAnnotatedClassFactory {
                 : classMap.containsKey(name.trim().toLowerCase());
     }
 
-    public Class<?> getClass(String name) {
+    public Class<? extends T> getClass(String name) {
         return (name == null)
                 ? null
                 : classMap.get(name.trim().toLowerCase());

@@ -26,7 +26,7 @@ import edu.cmu.tetrad.algcomparison.graph.RandomGraph;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class SimulationGraphTypes extends AbstractClassFactory<RandomGraph> {
+public final class SimulationGraphTypes extends AbstractClassFactory<RandomGraph> {
 
     private static final SimulationGraphTypes INSTANCE = new SimulationGraphTypes();
 

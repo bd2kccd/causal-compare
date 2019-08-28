@@ -18,6 +18,7 @@
  */
 package edu.pitt.dbmi.causal.compare.tetrad;
 
+import edu.cmu.tetrad.algcomparison.independence.IndependenceWrapper;
 import edu.cmu.tetrad.annotation.TestOfIndependenceAnnotations;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class IndependenceTestModels extends AbstractAnnotatedClassFactory {
+public final class IndependenceTestModels extends AbstractAnnotatedClassFactory<IndependenceWrapper> {
 
     private static final IndependenceTestModels INSTANCE = new IndependenceTestModels();
 

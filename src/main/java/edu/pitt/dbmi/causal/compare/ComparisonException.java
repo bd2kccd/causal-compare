@@ -16,29 +16,35 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare.tetrad;
-
-import edu.cmu.tetrad.algcomparison.score.ScoreWrapper;
-import edu.cmu.tetrad.annotation.ScoreAnnotations;
-import java.util.stream.Collectors;
+package edu.pitt.dbmi.causal.compare;
 
 /**
  *
- * Aug 26, 2019 11:17:30 AM
+ * Aug 19, 2019 2:47:00 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class ScoreModels extends AbstractAnnotatedClassFactory<ScoreWrapper> {
+public class ComparisonException extends Exception {
 
-    private static final ScoreModels INSTANCE = new ScoreModels();
+    private static final long serialVersionUID = -2399322388638175289L;
 
-    public ScoreModels() {
-        super(ScoreAnnotations.getInstance().getAnnotatedClasses().stream()
-                .collect(Collectors.toMap(e -> e.getAnnotation().command().trim().toLowerCase(), e -> e.getClazz())));
+    public ComparisonException() {
     }
 
-    public static ScoreModels getInstance() {
-        return INSTANCE;
+    public ComparisonException(String message) {
+        super(message);
+    }
+
+    public ComparisonException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ComparisonException(Throwable cause) {
+        super(cause);
+    }
+
+    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 
 }
