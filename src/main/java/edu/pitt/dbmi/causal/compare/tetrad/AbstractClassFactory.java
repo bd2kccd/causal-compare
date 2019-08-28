@@ -40,19 +40,19 @@ public abstract class AbstractClassFactory<T> {
         Set<Class<? extends T>> classes = reflections.getSubTypesOf(type);
 
         this.classMap = classes.stream()
-                .collect(Collectors.toMap(e -> e.getSimpleName().toLowerCase(), Function.identity()));
+                .collect(Collectors.toMap(e -> e.getSimpleName().trim().toLowerCase(), Function.identity()));
     }
 
-    public boolean hasClass(String className) {
-        return (className == null || className.isEmpty())
+    public boolean hasClass(String name) {
+        return (name == null)
                 ? false
-                : classMap.containsKey(className);
+                : classMap.containsKey(name.trim().toLowerCase());
     }
 
-    public Class<? extends T> getClass(String className) {
-        return (className == null || className.isEmpty())
+    public Class<? extends T> getClass(String name) {
+        return (name == null)
                 ? null
-                : classMap.get(className);
+                : classMap.get(name.trim().toLowerCase());
     }
 
 }

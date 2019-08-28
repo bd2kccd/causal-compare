@@ -20,9 +20,9 @@ package edu.pitt.dbmi.causal.compare.tetrad;
 
 import edu.cmu.tetrad.util.ParamDescription;
 import edu.cmu.tetrad.util.ParamDescriptions;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -34,12 +34,15 @@ public final class ParameterDescriptions {
 
     private static final ParameterDescriptions INSTANCE = new ParameterDescriptions();
 
-    private final Map<String, ParamDescription> map;
+    private final Map<String, ParamDescription> parameters = new HashMap<>();
+    private final Map<String, String> parameterNames = new HashMap<>();
 
     private ParameterDescriptions() {
         ParamDescriptions paramDescs = ParamDescriptions.getInstance();
-        this.map = paramDescs.getNames().stream()
-                .collect(Collectors.toMap(String::toLowerCase, e -> paramDescs.get(e)));
+        paramDescs.getNames().forEach(name -> {
+            parameterNames.put(name.trim().toLowerCase(), name);
+            parameters.put(name, paramDescs.get(name));
+        });
     }
 
     public static ParameterDescriptions getInstance() {
@@ -47,15 +50,25 @@ public final class ParameterDescriptions {
     }
 
     public boolean hasParameter(String name) {
-        return map.containsKey(name);
+        return (name == null)
+                ? false
+                : parameterNames.containsKey(name.trim().toLowerCase());
     }
 
     public Set<String> getNames() {
-        return map.keySet();
+        return parameters.keySet();
+    }
+
+    public String getOriginalName(String name) {
+        return (name == null)
+                ? null
+                : parameterNames.get(name.trim().toLowerCase());
     }
 
     public ParamDescription get(String name) {
-        return map.get(name);
+        return (name == null)
+                ? null
+                : parameters.get(parameterNames.get(name.trim().toLowerCase()));
     }
 
 }

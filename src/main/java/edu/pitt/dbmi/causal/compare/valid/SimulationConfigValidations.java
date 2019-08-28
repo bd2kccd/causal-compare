@@ -72,8 +72,7 @@ public final class SimulationConfigValidations {
         if (trueGraphFile == null) {
             throw new ValidationException("Element <truegraph> is required for simulation source of type 'file'.");
         }
-        trueGraphFile = trueGraphFile.trim().toLowerCase();
-        if (trueGraphFile.isEmpty()) {
+        if (trueGraphFile.trim().isEmpty()) {
             throw new ValidationException("Element <truegraph> requires value.");
         }
 
@@ -85,8 +84,7 @@ public final class SimulationConfigValidations {
             throw new ValidationException("Element <data> is required for simulation source of type 'file'.");
         }
 
-        dataFile = dataFile.trim().toLowerCase();
-        if (dataFile.isEmpty()) {
+        if (dataFile.trim().isEmpty()) {
             throw new ValidationException("Element <data> requires value.");
         }
 
@@ -98,8 +96,7 @@ public final class SimulationConfigValidations {
             throw new ValidationException("Element <modelType> is required for simulation source of type 'generate'.");
         }
 
-        modelType = modelType.trim().toLowerCase();
-        if (modelType.isEmpty()) {
+        if (modelType.trim().isEmpty()) {
             throw new ValidationException("Element <modelType> requires value.");
         }
 
@@ -113,8 +110,7 @@ public final class SimulationConfigValidations {
             throw new ValidationException("Element <graphtype> is required for simulation source of type 'generate'.");
         }
 
-        graphType = graphType.trim().toLowerCase();
-        if (graphType.isEmpty()) {
+        if (graphType.trim().isEmpty()) {
             throw new ValidationException("Element <graphtype> requires value.");
         }
 

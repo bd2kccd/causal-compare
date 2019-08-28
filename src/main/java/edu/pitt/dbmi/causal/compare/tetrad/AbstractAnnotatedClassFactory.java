@@ -34,16 +34,16 @@ public abstract class AbstractAnnotatedClassFactory {
         this.classMap = classMap;
     }
 
-    public boolean hasClass(String className) {
-        return (className == null || className.isEmpty())
+    public boolean hasClass(String name) {
+        return (name == null)
                 ? false
-                : classMap.containsKey(className);
+                : classMap.containsKey(name.trim().toLowerCase());
     }
 
-    public Class<?> getClass(String className) {
-        return (className == null || className.isEmpty())
+    public Class<?> getClass(String name) {
+        return (name == null)
                 ? null
-                : classMap.get(className);
+                : classMap.get(name.trim().toLowerCase());
     }
 
 }

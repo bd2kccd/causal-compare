@@ -23,6 +23,7 @@ import edu.pitt.dbmi.causal.compare.conf.AlgorithmConfig;
 import edu.pitt.dbmi.causal.compare.conf.Configuration;
 import edu.pitt.dbmi.causal.compare.conf.Configurations;
 import edu.pitt.dbmi.causal.compare.conf.ParameterConfig;
+import edu.pitt.dbmi.causal.compare.conf.Property;
 import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
 import edu.pitt.dbmi.causal.compare.conf.SimulationSource;
 import java.io.IOException;
@@ -103,20 +104,29 @@ public class CausalCompareApplicationTest {
         ));
 
         config.setAlgorithmConfigs(Arrays.asList(
-                new AlgorithmConfig("gfci", "fisher-z", "sem-bic"),
+                new AlgorithmConfig("gfci", "fisher-z-test", "sem-bic"),
                 new AlgorithmConfig("fges", null, "sem-bic")
         ));
 
         config.setStatistics(Arrays.asList(
-                "adjacencyprecision",
-                "arrowheadrecall",
-                "adjacencyrecall"
+                "adjacencyPrecision",
+                "arrowheadRecall",
+                "adjacencyRecall"
         ));
 
         config.setParameters(Arrays.asList(
                 new ParameterConfig(Params.NUM_RUNS, "1"),
                 new ParameterConfig(Params.NUM_MEASURES, "4,6"),
                 new ParameterConfig(Params.AVG_DEGREE, "4")
+        ));
+
+        config.setComparisonProperties(Arrays.asList(
+                new Property("showAlgorithmIndices", "true"),
+                new Property("showSimulationIndices", "true"),
+                new Property("sortByUtility", "true"),
+                new Property("showUtilities", "true"),
+                new Property("saveSearchGraphs", "true"),
+                new Property("tabDelimitedTables", "true")
         ));
 
         return config;

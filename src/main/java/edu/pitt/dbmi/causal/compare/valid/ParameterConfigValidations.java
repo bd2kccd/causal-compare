@@ -41,42 +41,25 @@ public final class ParameterConfigValidations {
 
             ParameterDescriptions paramDescs = ParameterDescriptions.getInstance();
             for (ParameterConfig config : configs) {
-                String name = getName(config);
+                String name = config.getName();
+                if (name == null) {
+                    throw new ValidationException("Element <parameter> requires 'name' attribute.");
+                }
+
+                if (name.trim().isEmpty()) {
+                    throw new ValidationException("Attribute 'name' requires value.");
+                }
+
                 if (!paramDescs.hasParameter(name)) {
                     throw new ValidationException(String.format("No such parameter \"%s\".", name));
                 }
 
-                getValue(config);
+                String value = config.getValue();
+                if (value == null || value.trim().isEmpty()) {
+                    throw new ValidationException("Element <parameter> requires value.");
+                }
             }
         }
-    }
-
-    private static String getValue(ParameterConfig config) throws ValidationException {
-        String value = config.getValue();
-        if (value == null) {
-            throw new ValidationException("Element <parameter> requires 'value' attribute.");
-        }
-
-        value = value.trim();
-        if (value.isEmpty()) {
-            throw new ValidationException("Attribute 'value' requires value.");
-        }
-
-        return value;
-    }
-
-    private static String getName(ParameterConfig config) throws ValidationException {
-        String name = config.getName();
-        if (name == null) {
-            throw new ValidationException("Element <parameter> requires 'name' attribute.");
-        }
-
-        name = name.trim().toLowerCase();
-        if (name.isEmpty()) {
-            throw new ValidationException("Attribute 'name' requires value.");
-        }
-
-        return name;
     }
 
 }

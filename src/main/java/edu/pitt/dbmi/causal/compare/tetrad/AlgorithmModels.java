@@ -33,7 +33,7 @@ public final class AlgorithmModels extends AbstractAnnotatedClassFactory {
 
     private AlgorithmModels() {
         super(AlgorithmAnnotations.getInstance().getAnnotatedClasses().stream()
-                .collect(Collectors.toMap(e -> e.getAnnotation().command(), e -> e.getClazz())));
+                .collect(Collectors.toMap(e -> e.getAnnotation().command().trim().toLowerCase(), e -> e.getClazz())));
     }
 
     public static AlgorithmModels getInstance() {

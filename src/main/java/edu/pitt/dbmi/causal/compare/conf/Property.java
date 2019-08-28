@@ -26,13 +26,13 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  *
- * Aug 15, 2019 4:00:03 PM
+ * Aug 28, 2019 10:58:16 AM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-@XmlRootElement(name = "parameter")
+@XmlRootElement(name = "property")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ParameterConfig {
+public class Property {
 
     @XmlAttribute
     private String name;
@@ -40,10 +40,10 @@ public class ParameterConfig {
     @XmlValue
     private String value;
 
-    public ParameterConfig() {
+    public Property() {
     }
 
-    public ParameterConfig(String name, String value) {
+    public Property(String name, String value) {
         this.name = name;
         this.value = value;
     }

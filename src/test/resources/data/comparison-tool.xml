@@ -20,13 +20,21 @@
         </algorithm>
     </algorithms>
     <statistics>
-        <statistic>adjacencyprecision</statistic>
-        <statistic>arrowheadrecall</statistic>
-        <statistic>adjacencyrecall</statistic>
+        <statistic>adjacencyPrecision</statistic>
+        <statistic>arrowheadRecall</statistic>
+        <statistic>adjacencyRecall</statistic>
     </statistics>
     <parameters>
-        <parameter name="numRuns" value="1"/>
-        <parameter name="numMeasures" value="4,6" />
-        <parameter name="avgDegree" value="4" />
+        <parameter name="numRuns">1</parameter>
+        <parameter name="numMeasures">4,6</parameter>
+        <parameter name="avgDegree">4</parameter>
     </parameters>
+    <comparison>
+        <property name="showAlgorithmIndices">true</property>
+        <property name="showSimulationIndices">true</property>
+        <property name="sortByUtility">true</property>
+        <property name="showUtilities">true</property>
+        <property name="saveSearchGraphs">true</property>
+        <property name="tabDelimitedTables">true</property>
+    </comparison>
 </comparisontool>

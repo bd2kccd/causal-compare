@@ -51,6 +51,10 @@ public class Configuration {
     @XmlElement(name = "parameter")
     private List<ParameterConfig> parameters;
 
+    @XmlElementWrapper(name = "comparison")
+    @XmlElement(name = "property")
+    private List<Property> comparisonProperties;
+
     public Configuration() {
     }
 
@@ -84,6 +88,14 @@ public class Configuration {
 
     public void setParameters(List<ParameterConfig> parameters) {
         this.parameters = parameters;
+    }
+
+    public List<Property> getComparisonProperties() {
+        return comparisonProperties;
+    }
+
+    public void setComparisonProperties(List<Property> comparisonProperties) {
+        this.comparisonProperties = comparisonProperties;
     }
 
 }

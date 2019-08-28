@@ -64,8 +64,7 @@ public final class AlgorithmConfigValidations {
                 throw new ValidationException(String.format("Element <score> is required for algorithm \"%s\".", config.getName()));
             }
 
-            score = score.trim().toLowerCase();
-            if (score.isEmpty()) {
+            if (score.trim().isEmpty()) {
                 throw new ValidationException("Element <score> requires value.");
             }
 
@@ -84,8 +83,7 @@ public final class AlgorithmConfigValidations {
                 throw new ValidationException(String.format("Element <test> is required for algorithm \"%s\".", config.getName()));
             }
 
-            indTest = indTest.trim().toLowerCase();
-            if (indTest.isEmpty()) {
+            if (indTest.trim().isEmpty()) {
                 throw new ValidationException("Element <test> requires value.");
             }
 
@@ -103,8 +101,7 @@ public final class AlgorithmConfigValidations {
             throw new ValidationException("Element <algorithm> requires 'name' attribute.");
         }
 
-        name = name.trim();
-        if (name.isEmpty()) {
+        if (name.trim().isEmpty()) {
             throw new ValidationException("Attribute 'name' requires value.");
         }
 

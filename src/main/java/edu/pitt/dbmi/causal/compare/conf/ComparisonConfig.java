@@ -16,28 +16,42 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare.tetrad;
+package edu.pitt.dbmi.causal.compare.conf;
 
-import edu.cmu.tetrad.annotation.ScoreAnnotations;
-import java.util.stream.Collectors;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * Aug 26, 2019 11:17:30 AM
+ * Aug 21, 2019 3:41:30 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public final class ScoreModels extends AbstractAnnotatedClassFactory {
+@XmlRootElement(name = "comparison")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ComparisonConfig {
 
-    private static final ScoreModels INSTANCE = new ScoreModels();
+    @XmlElementWrapper(name = "properties")
+    @XmlElement(name = "property")
+    private List<Property> properties;
 
-    public ScoreModels() {
-        super(ScoreAnnotations.getInstance().getAnnotatedClasses().stream()
-                .collect(Collectors.toMap(e -> e.getAnnotation().command().trim().toLowerCase(), e -> e.getClazz())));
+    public ComparisonConfig() {
     }
 
-    public static ScoreModels getInstance() {
-        return INSTANCE;
+    public ComparisonConfig(List<Property> properties) {
+        this.properties = properties;
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
     }
 
 }
