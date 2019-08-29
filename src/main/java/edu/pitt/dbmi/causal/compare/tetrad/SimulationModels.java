@@ -47,6 +47,7 @@ public final class SimulationModels {
         for (SimulationConfig config : configs) {
             switch (config.getSource()) {
                 case file:
+                    // todo
                     break;
                 case generate:
                     Class<? extends RandomGraph> randGraphClass = GRAPH_TYPES.getClass(config.getGraphType());

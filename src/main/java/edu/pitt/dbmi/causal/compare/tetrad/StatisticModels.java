@@ -19,6 +19,8 @@
 package edu.pitt.dbmi.causal.compare.tetrad;
 
 import edu.cmu.tetrad.algcomparison.statistic.Statistic;
+import edu.cmu.tetrad.algcomparison.statistic.Statistics;
+import java.util.List;
 
 /**
  *
@@ -36,6 +38,16 @@ public class StatisticModels extends AbstractClassFactory<Statistic> {
 
     public static StatisticModels getInstance() {
         return INSTANCE;
+    }
+
+    public Statistics create(List<String> stats) throws InstantiationException, IllegalAccessException {
+        Statistics statistics = new Statistics();
+
+        for (String stat : stats) {
+            statistics.add((Statistic) getClass(stat).newInstance());
+        }
+
+        return statistics;
     }
 
 }

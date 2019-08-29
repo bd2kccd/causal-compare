@@ -32,6 +32,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBException;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -75,6 +76,7 @@ public class CausalCompareApplicationTest {
         System.out.println("================================================================================");
     }
 
+    @Ignore
     @Test
     public void testCreateXMLConfig() {
         System.out.println("================================================================================");

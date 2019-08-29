@@ -18,8 +18,11 @@
  */
 package edu.pitt.dbmi.causal.compare.tetrad;
 
+import edu.cmu.tetrad.algcomparison.Comparison;
+import edu.pitt.dbmi.causal.compare.conf.Property;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -57,6 +60,35 @@ public final class ComparisonProperties {
 
     public boolean hasProperty(String prop) {
         return (prop == null) ? false : properties.contains(prop.trim().toLowerCase());
+    }
+
+    public Comparison create(List<Property> props) {
+        Comparison comparison = new Comparison();
+
+        props.forEach(e -> {
+            switch (e.getName().trim().toLowerCase()) {
+                case SHOW_ALGORITHM_INDICES:
+                    comparison.setShowAlgorithmIndices(Boolean.valueOf(e.getValue().trim()));
+                    break;
+                case SHOW_SIMULATION_INDICES:
+                    comparison.setShowSimulationIndices(Boolean.valueOf(e.getValue().trim()));
+                    break;
+                case SORT_BY_UTILITY:
+                    comparison.setSortByUtility(Boolean.valueOf(e.getValue().trim()));
+                    break;
+                case SHOW_UTILITIES:
+                    comparison.setShowUtilities(Boolean.valueOf(e.getValue().trim()));
+                    break;
+                case SAVE_SEARCH_GRAPHS:
+                    comparison.setSaveGraphs(Boolean.valueOf(e.getValue().trim()));
+                    break;
+                case TAB_DELIMITED_TABLES:
+                    comparison.setTabDelimitedTables(Boolean.valueOf(e.getValue().trim()));
+                    break;
+            }
+        });
+
+        return comparison;
     }
 
 }

@@ -18,9 +18,17 @@
  */
 package edu.pitt.dbmi.causal.compare;
 
+import edu.cmu.tetrad.algcomparison.Comparison;
 import edu.cmu.tetrad.algcomparison.algorithm.Algorithms;
+import edu.cmu.tetrad.algcomparison.simulation.Simulations;
+import edu.cmu.tetrad.algcomparison.statistic.Statistics;
+import edu.cmu.tetrad.util.Parameters;
 import edu.pitt.dbmi.causal.compare.conf.Configuration;
 import edu.pitt.dbmi.causal.compare.tetrad.AlgorithmModels;
+import edu.pitt.dbmi.causal.compare.tetrad.ComparisonProperties;
+import edu.pitt.dbmi.causal.compare.tetrad.ParameterModels;
+import edu.pitt.dbmi.causal.compare.tetrad.SimulationModels;
+import edu.pitt.dbmi.causal.compare.tetrad.StatisticModels;
 import edu.pitt.dbmi.causal.compare.valid.ConfigurationValidations;
 import edu.pitt.dbmi.causal.compare.valid.ValidationException;
 import java.util.Arrays;
@@ -68,6 +76,12 @@ public class CausalCompareApplication {
         Configuration config = cmdArgs.getConfiguration();
 
         Algorithms algorithms = AlgorithmModels.getInstance().create(config.getAlgorithmConfigs());
+        Simulations simulations = SimulationModels.getInstance().create(config.getSimulationConfigs());
+        Statistics statistics = StatisticModels.getInstance().create(config.getStatistics());
+        Parameters parameters = ParameterModels.getInstance().create(config.getParameters());
+
+        Comparison comparison = ComparisonProperties.getInstance().create(config.getComparisonProperties());
+        comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, algorithms, statistics, parameters);
     }
 
     private static String[] cleanArgs(String[] args) {

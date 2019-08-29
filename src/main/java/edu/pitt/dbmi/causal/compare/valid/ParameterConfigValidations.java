@@ -19,7 +19,7 @@
 package edu.pitt.dbmi.causal.compare.valid;
 
 import edu.pitt.dbmi.causal.compare.conf.ParameterConfig;
-import edu.pitt.dbmi.causal.compare.tetrad.ParameterDescriptions;
+import edu.pitt.dbmi.causal.compare.tetrad.ParameterModels;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public final class ParameterConfigValidations {
                 throw new ValidationException("Parent element <parameters> requires child element <parameter>.");
             }
 
-            ParameterDescriptions paramDescs = ParameterDescriptions.getInstance();
+            ParameterModels paramDescs = ParameterModels.getInstance();
             for (ParameterConfig config : configs) {
                 String name = config.getName();
                 if (name == null) {

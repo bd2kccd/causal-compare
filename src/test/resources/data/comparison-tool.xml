@@ -5,10 +5,6 @@
             <graphtype>RandomForward</graphtype>
             <modeltype>SemSimulation</modeltype>
         </simulation>
-        <simulation source="file">
-            <data>src/test/resources/data/data_sim_10var_1kcase.txt</data>
-            <truegraph>src/test/resources/data/graph_sim_10var_1kcase.txt</truegraph>
-        </simulation>
     </simulations>
     <algorithms>
         <algorithm name="gfci">
@@ -25,7 +21,7 @@
         <statistic>adjacencyRecall</statistic>
     </statistics>
     <parameters>
-        <parameter name="numRuns">1</parameter>
+        <parameter name="numruns">1</parameter>
         <parameter name="numMeasures">4,6</parameter>
         <parameter name="avgDegree">4</parameter>
     </parameters>
