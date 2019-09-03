@@ -1,0 +1,21 @@
+Lee & Hastie simulation using Graph constructed by adding random forward edges
+graphsDropdownPreference = Random Foward DAG
+simulationsDropdownPreference = Lee & Hastie
+numMeasures = 10
+numLatents = 0
+avgDegree = 2
+maxDegree = 100
+maxIndegree = 100
+maxOutdegree = 100
+connected = false
+minCategories = 3
+maxCategories = 3
+numRuns = 3
+differentGraphs = false
+randomizeColumns = true
+sampleSize = 1000
+saveLatentVars = false
+numCategories = 4
+percentDiscrete = 50.0
+verbose = true
+dataType = categorical
