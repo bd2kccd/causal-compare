@@ -22,6 +22,7 @@ import edu.cmu.tetrad.algcomparison.Comparison;
 import edu.cmu.tetrad.algcomparison.algorithm.Algorithms;
 import edu.cmu.tetrad.algcomparison.simulation.Simulations;
 import edu.cmu.tetrad.algcomparison.statistic.Statistics;
+import edu.cmu.tetrad.data.simulation.LoadDataAndGraphs;
 import edu.cmu.tetrad.util.Parameters;
 import edu.pitt.dbmi.causal.compare.conf.Configuration;
 import edu.pitt.dbmi.causal.compare.tetrad.AlgorithmModels;
@@ -89,9 +90,13 @@ public class CausalCompareApplication {
         String outDir = cmdArgs.getOutDirectory().toString();
         String prefix = cmdArgs.getFileNamePrefix();
         Path outTxtFile = Paths.get(outDir, String.format("%s.stdout", prefix));
-
         try (PrintStream out = new PrintStream(new BufferedOutputStream(Files.newOutputStream(outTxtFile, StandardOpenOption.CREATE)), true)) {
             parameters.set("printStream", out);
+
+            simulations.getSimulations().stream()
+                    .filter(e -> e instanceof LoadDataAndGraphs)
+                    .map(e -> (LoadDataAndGraphs) e)
+                    .forEach(e -> e.setStdout(out));
 
             Comparison comparison = ComparisonProperties.getInstance().create(config.getComparisonProperties());
             comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, String.format("%s.stat", prefix), algorithms, statistics, parameters);
