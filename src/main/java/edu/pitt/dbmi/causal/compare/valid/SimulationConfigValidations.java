@@ -60,23 +60,23 @@ public final class SimulationConfigValidations {
                     validateGraphType(config.getGraphType());
                     validateModelType(config.getModelType());
                     break;
-                case file:
-                    validateDataFile(config.getDataFile());
-                    validateTrueGraphFile(config.getTrueGraphFile());
+                case directory:
+                    validatePath(config.getPath());
                     break;
             }
         }
     }
 
-    private static void validateTrueGraphFile(String trueGraphFile) throws ValidationException {
-        if (trueGraphFile == null) {
-            throw new ValidationException("Element <truegraph> is required for simulation source of type 'file'.");
-        }
-        if (trueGraphFile.trim().isEmpty()) {
-            throw new ValidationException("Element <truegraph> requires value.");
+    private static void validatePath(String path) throws ValidationException {
+        if (path == null) {
+            throw new ValidationException("Element <path> is required for simulation source of type 'directory'.");
         }
 
-        validateFile(Paths.get(trueGraphFile));
+        if (path.trim().isEmpty()) {
+            throw new ValidationException("Element <path> requires value.");
+        }
+
+        validatePath(Paths.get(path));
     }
 
     private static void validateDataFile(String dataFile) throws ValidationException {
@@ -89,6 +89,17 @@ public final class SimulationConfigValidations {
         }
 
         validateFile(Paths.get(dataFile));
+    }
+
+    private static void validateTrueGraphFile(String trueGraphFile) throws ValidationException {
+        if (trueGraphFile == null) {
+            throw new ValidationException("Element <truegraph> is required for simulation source of type 'file'.");
+        }
+        if (trueGraphFile.trim().isEmpty()) {
+            throw new ValidationException("Element <truegraph> requires value.");
+        }
+
+        validateFile(Paths.get(trueGraphFile));
     }
 
     private static void validateModelType(String modelType) throws ValidationException {
@@ -116,6 +127,16 @@ public final class SimulationConfigValidations {
 
         if (!SimulationGraphTypes.getInstance().hasClass(graphType)) {
             throw new ValidationException(String.format("No such graph type \"%s\".", graphType));
+        }
+    }
+
+    private static void validatePath(Path dir) throws ValidationException {
+        if (Files.notExists(dir)) {
+            throw new ValidationException(String.format("Path \"%s\" does not exist.", dir.toString()));
+        } else {
+            if (!Files.isDirectory(dir)) {
+                throw new ValidationException(String.format("Path \"%s\" is not a directory.", dir.toString()));
+            }
         }
     }
 

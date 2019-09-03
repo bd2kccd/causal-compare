@@ -26,6 +26,6 @@ package edu.pitt.dbmi.causal.compare.conf;
  */
 public enum SimulationSource {
 
-    generate, file
+    generate, directory
 
 }

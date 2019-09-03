@@ -28,6 +28,7 @@ import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
 import edu.pitt.dbmi.causal.compare.conf.SimulationSource;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -57,8 +58,10 @@ public class CausalCompareApplicationTest {
     public void testMain() throws IOException {
         String configFile = getClass().getResource("/data/comparison-tool.xml").getFile();
         String dirOut = tmpFolder.newFolder("comparison").toString();
+        String prefix = "test_compare";
         String[] args = {
             "--config", configFile,
+            "--prefix", prefix,
             "--out", dirOut
         };
         CausalCompareApplication.main(args);
@@ -67,11 +70,9 @@ public class CausalCompareApplicationTest {
         Files.list(Paths.get(dirOut))
                 .filter(Files::isRegularFile)
                 .forEach(e -> {
-                    try (Stream<String> stream = Files.lines(e)) {
-                        stream.forEach(System.out::println);
-                    } catch (IOException exception) {
-                        exception.printStackTrace(System.err);
-                    }
+                    System.out.println(e);
+                    System.out.println("--------------------------------------------------------------------------------");
+                    printFile(e);
                 });
         System.out.println("================================================================================");
     }
@@ -97,9 +98,8 @@ public class CausalCompareApplicationTest {
         genSimConfig.setModelType("SemSimulation");
 
         SimulationConfig fileSimeConfig = new SimulationConfig();
-        fileSimeConfig.setSource(SimulationSource.file);
-        fileSimeConfig.setDataFile("src/test/resources/data/data_sim_10var_1kcase.txt");
-        fileSimeConfig.setTrueGraphFile("src/test/resources/data/graph_sim_10var_1kcase.txt");
+        fileSimeConfig.setSource(SimulationSource.directory);
+        fileSimeConfig.setPath("src/test/resources/data/simulation");
         config.setSimulationConfigs(Arrays.asList(
                 genSimConfig,
                 fileSimeConfig
@@ -132,6 +132,14 @@ public class CausalCompareApplicationTest {
         ));
 
         return config;
+    }
+
+    private static void printFile(Path file) {
+        try (Stream<String> stream = Files.lines(file)) {
+            stream.forEach(System.out::println);
+        } catch (IOException exception) {
+            exception.printStackTrace(System.err);
+        }
     }
 
 }

@@ -43,11 +43,8 @@ public class SimulationConfig {
     @XmlElement(name = "modeltype")
     private String modelType;
 
-    @XmlElement(name = "data")
-    private String dataFile;
-
-    @XmlElement(name = "truegraph")
-    private String trueGraphFile;
+    @XmlElement(name = "path")
+    private String path;
 
     public SimulationConfig() {
     }
@@ -76,20 +73,12 @@ public class SimulationConfig {
         this.modelType = modelType;
     }
 
-    public String getDataFile() {
-        return dataFile;
+    public String getPath() {
+        return path;
     }
 
-    public void setDataFile(String dataFile) {
-        this.dataFile = dataFile;
-    }
-
-    public String getTrueGraphFile() {
-        return trueGraphFile;
-    }
-
-    public void setTrueGraphFile(String trueGraphFile) {
-        this.trueGraphFile = trueGraphFile;
+    public void setPath(String path) {
+        this.path = path;
     }
 
 }

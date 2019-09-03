@@ -21,6 +21,7 @@ package edu.pitt.dbmi.causal.compare.tetrad;
 import edu.cmu.tetrad.algcomparison.graph.RandomGraph;
 import edu.cmu.tetrad.algcomparison.simulation.Simulation;
 import edu.cmu.tetrad.algcomparison.simulation.Simulations;
+import edu.cmu.tetrad.data.simulation.LoadDataAndGraphs;
 import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -46,8 +47,8 @@ public final class SimulationModels {
 
         for (SimulationConfig config : configs) {
             switch (config.getSource()) {
-                case file:
-                    // todo
+                case directory:
+                    simulations.add(new LoadDataAndGraphs(config.getPath()));
                     break;
                 case generate:
                     Class<? extends RandomGraph> randGraphClass = GRAPH_TYPES.getClass(config.getGraphType());

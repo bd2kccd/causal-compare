@@ -5,6 +5,9 @@
             <graphtype>RandomForward</graphtype>
             <modeltype>SemSimulation</modeltype>
         </simulation>
+        <simulation source="directory">
+            <path>src/test/resources/data/simulation</path>
+        </simulation>
     </simulations>
     <algorithms>
         <algorithm name="gfci">
@@ -21,7 +24,7 @@
         <statistic>adjacencyRecall</statistic>
     </statistics>
     <parameters>
-        <parameter name="numruns">1</parameter>
+        <parameter name="numRuns">1</parameter>
         <parameter name="numMeasures">4,6</parameter>
         <parameter name="avgDegree">4</parameter>
     </parameters>
