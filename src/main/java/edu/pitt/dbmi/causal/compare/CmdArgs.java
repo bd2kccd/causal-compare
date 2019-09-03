@@ -29,19 +29,25 @@ import java.nio.file.Path;
  */
 public class CmdArgs {
 
-    protected Path outDirectory;
-
     protected Configuration configuration;
 
+    protected Path outDirectory;
+
+    protected String fileNamePrefix;
+
     public CmdArgs() {
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
     public Path getOutDirectory() {
         return outDirectory;
     }
 
-    public Configuration getConfiguration() {
-        return configuration;
+    public String getFileNamePrefix() {
+        return fileNamePrefix;
     }
 
 }

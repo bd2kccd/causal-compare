@@ -36,8 +36,8 @@ public final class CmdOptions {
     private final static CmdOptions INSTANCE = new CmdOptions();
 
     private CmdOptions() {
-        options.put(CmdParams.CONFIG_FILE, Option.builder().longOpt(CmdParams.CONFIG_FILE).desc("XML configuration file.").hasArg().argName("string").required().build());
-        options.put(CmdParams.DIR_OUT, Option.builder().longOpt(CmdParams.DIR_OUT).desc("Output directory").hasArg().argName("directory").build());
+        addRequiredOptions();
+        addOptionalOptions();
     }
 
     public static CmdOptions getInstance() {
@@ -51,6 +51,15 @@ public final class CmdOptions {
         });
 
         return opts;
+    }
+
+    private void addRequiredOptions() {
+        options.put(CmdParams.CONFIG_FILE, Option.builder().longOpt(CmdParams.CONFIG_FILE).desc("XML configuration file.").hasArg().argName("string").required().build());
+        options.put(CmdParams.DIR_OUT, Option.builder().longOpt(CmdParams.DIR_OUT).desc("Output directory").hasArg().argName("directory").build());
+    }
+
+    private void addOptionalOptions() {
+        options.put(CmdParams.FILENAME_PREFIX, Option.builder().longOpt(CmdParams.FILENAME_PREFIX).desc("Prefix filename of output files.").hasArg().argName("string").build());
     }
 
 }

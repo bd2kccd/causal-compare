@@ -56,6 +56,8 @@ public final class CmdParser {
         cmdArgs.outDirectory = cmd.hasOption(CmdParams.DIR_OUT)
                 ? Paths.get(cmd.getOptionValue(CmdParams.DIR_OUT))
                 : Paths.get(".");
+
+        cmdArgs.fileNamePrefix = getValidPrefix(cmd, cmdArgs);
     }
 
     private static void parseRequiredOptions(CommandLine cmd, Options options, CmdArgs cmdArgs) throws CmdParserException {
@@ -73,6 +75,14 @@ public final class CmdParser {
         } catch (JAXBException exception) {
             exception.printStackTrace(System.err);
             throw new CmdParserException(options, exception);
+        }
+    }
+
+    private static String getValidPrefix(CommandLine cmd, CmdArgs cmdArgs) {
+        if (cmd.hasOption(CmdParams.FILENAME_PREFIX)) {
+            return cmd.getOptionValue(CmdParams.FILENAME_PREFIX);
+        } else {
+            return "causal_compare";
         }
     }
 

@@ -28,6 +28,8 @@ public final class CmdParams {
 
     public static final String CONFIG_FILE = "config";
 
+    // output
+    public static final String FILENAME_PREFIX = "prefix";
     public static final String DIR_OUT = "out";
 
     private CmdParams() {

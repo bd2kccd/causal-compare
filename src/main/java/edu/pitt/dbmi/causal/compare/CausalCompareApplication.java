@@ -31,6 +31,12 @@ import edu.pitt.dbmi.causal.compare.tetrad.SimulationModels;
 import edu.pitt.dbmi.causal.compare.tetrad.StatisticModels;
 import edu.pitt.dbmi.causal.compare.valid.ConfigurationValidations;
 import edu.pitt.dbmi.causal.compare.valid.ValidationException;
+import java.io.BufferedOutputStream;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -80,8 +86,16 @@ public class CausalCompareApplication {
         Statistics statistics = StatisticModels.getInstance().create(config.getStatistics());
         Parameters parameters = ParameterModels.getInstance().create(config.getParameters());
 
-        Comparison comparison = ComparisonProperties.getInstance().create(config.getComparisonProperties());
-        comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, algorithms, statistics, parameters);
+        String outDir = cmdArgs.getOutDirectory().toString();
+        String prefix = cmdArgs.getFileNamePrefix();
+        Path outTxtFile = Paths.get(outDir, String.format("%s.stdout", prefix));
+
+        try (PrintStream out = new PrintStream(new BufferedOutputStream(Files.newOutputStream(outTxtFile, StandardOpenOption.CREATE)), true)) {
+            parameters.set("printStream", out);
+
+            Comparison comparison = ComparisonProperties.getInstance().create(config.getComparisonProperties());
+            comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, String.format("%s.stat", prefix), algorithms, statistics, parameters);
+        }
     }
 
     private static String[] cleanArgs(String[] args) {
