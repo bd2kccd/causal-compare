@@ -29,7 +29,6 @@ import edu.pitt.dbmi.causal.compare.conf.SimulationSource;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBException;
@@ -65,16 +64,6 @@ public class CausalCompareApplicationTest {
             "--out", dirOut
         };
         CausalCompareApplication.main(args);
-
-        System.out.println("================================================================================");
-        Files.list(Paths.get(dirOut))
-                .filter(Files::isRegularFile)
-                .forEach(e -> {
-                    System.out.println(e);
-                    System.out.println("--------------------------------------------------------------------------------");
-                    printFile(e);
-                });
-        System.out.println("================================================================================");
     }
 
     @Ignore
