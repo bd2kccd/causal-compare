@@ -1,0 +1,40 @@
+<br><br>
+<div class="container">
+	<span class="btn btn-default btn-file">Load Stats<input type="file" value="" onchange="angular.element(this).scope().loadStats(this)"></span>
+	&emsp;
+	<span class="btn btn-default btn-file">Load Config<input type="file" value="" onchange="angular.element(this).scope().loadConfig(this)"></span>
+	&emsp;
+	<span class="btn btn-default btn-file">Load Std<input type="file" value="" onchange="angular.element(this).scope().loadStd(this)"></span>
+	&emsp;
+	Number of Runs: <input type="text" ng-change="runsChanged()" ng-model="runs" style="width:45px; text-align:right; border-radius: 4px; padding: 5px 6px; color: #333; background-color: #fff;; border: 1px solid #ccc;"">
+	<div style="display: inline; float: right;">
+		<a href="example.zip">Download an Example</a>
+		&emsp;
+		<button class="btn btn-default btn-file" ng-click="help()">Help</button>
+	</div>
+	<br><br>
+	<div class="row">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="heading in headings">
+				<div class="row">
+					<div class="col-sm-3">
+						{{heading.heading}}
+					</div>
+					<div class="col-sm-6"></div>
+					<div class="col-sm-3">
+						<select class="form-control" ng-model="heading.assignment" ng-change="assignmentChanged(this)">
+						<option value="Ignore">Ignore</option>
+						<option value="Package">Package</option>
+						<option value="Algorithm">Algorithm</option>
+						<option value="Parameter">Parameter</option>
+						<option value="Statistic">Statistic</option>
+						<option value="Time">Time</option>
+						</select>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<pre ng-hide="hideData" style="max-height: 600px">{{dataTable}}</pre>
+	<pre ng-hide="hideStd" style="max-height: 600px">{{stdTable}}</pre>
+</div>

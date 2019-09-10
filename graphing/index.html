@@ -1,0 +1,31 @@
+<html style="overflow-y: scroll;">
+
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.css" rel="stylesheet">   
+
+    <script src="js/module/app.js"></script>
+    <script src="js/controller/loadCtrl.js"></script>
+    <script src="js/controller/plotCtrl.js"></script>
+    <script src="js/factory/comparisonData.js"></script>
+    <script src="js/lib/distributions.js"></script>
+    
+    <title>Algorithm Visualization</title>
+  </head>
+  <body>
+    <div class="container-fluid" ng-app="app">
+      <header ng-include="'view/header.html'"></header>
+      <div ui-view></div>
+    </div>
+  </body>
+
+</html>

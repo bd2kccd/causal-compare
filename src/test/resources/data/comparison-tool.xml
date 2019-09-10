@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comparisontool>
+    <simulations>
+        <simulation source="generate">
+            <graphtype>RandomForward</graphtype>
+            <modeltype>SemSimulation</modeltype>
+        </simulation>
+        <simulation source="directory">
+            <path>src/test/resources/data/simulation</path>
+        </simulation>
+    </simulations>
+    <algorithms>
+        <algorithm name="gfci">
+            <test>fisher-z-test</test>
+            <score>sem-bic</score>
+        </algorithm>
+        <algorithm name="fges">
+            <score>sem-bic</score>
+        </algorithm>
+    </algorithms>
+    <statistics>
+        <statistic>adjacencyPrecision</statistic>
+        <statistic>arrowheadRecall</statistic>
+        <statistic>adjacencyRecall</statistic>
+    </statistics>
+    <parameters>
+        <parameter name="numRuns">1</parameter>
+        <parameter name="numMeasures">4,6</parameter>
+        <parameter name="avgDegree">4</parameter>
+    </parameters>
+    <comparison>
+        <property name="showAlgorithmIndices">true</property>
+        <property name="showSimulationIndices">true</property>
+        <property name="sortByUtility">true</property>
+        <property name="showUtilities">true</property>
+        <property name="saveSearchGraphs">true</property>
+        <property name="tabDelimitedTables">true</property>
+    </comparison>
+</comparisontool>
