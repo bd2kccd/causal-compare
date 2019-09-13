@@ -88,6 +88,11 @@ public class CausalCompareApplication {
         Parameters parameters = ParameterModels.getInstance().create(config.getParameters());
 
         String outDir = cmdArgs.getOutDirectory().toString();
+        Path dirOut = Paths.get(outDir);
+        if (Files.notExists(dirOut)) {
+            Files.createDirectory(dirOut);
+        }
+
         String prefix = cmdArgs.getFileNamePrefix();
         Path outTxtFile = Paths.get(outDir, String.format("%s.stdout.txt", prefix));
         try (PrintStream out = new PrintStream(new BufferedOutputStream(Files.newOutputStream(outTxtFile, StandardOpenOption.CREATE)), true)) {
