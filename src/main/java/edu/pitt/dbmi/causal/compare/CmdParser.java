@@ -55,7 +55,7 @@ public final class CmdParser {
     private static void parseOptionalOptions(CommandLine cmd, Options options, CmdArgs cmdArgs) throws CmdParserException {
         cmdArgs.outDirectory = cmd.hasOption(CmdParams.DIR_OUT)
                 ? Paths.get(cmd.getOptionValue(CmdParams.DIR_OUT))
-                : Paths.get(".");
+                : Paths.get("causal_compare_results");
 
         cmdArgs.fileNamePrefix = getValidPrefix(cmd, cmdArgs);
     }

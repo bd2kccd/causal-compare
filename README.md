@@ -4,8 +4,10 @@ A command-line interface (CLI) for running algorithm comparison tool on simulate
 ## Building the software
 
 ### Prerequisites - You must have the following installed:
-* [Java SE Development Kit 8]([https://www.oracle.com/technetwork/java/javase/downloads/index.html](https://www.oracle.com/technetwork/java/javase/downloads/index.html))
+* [Java SE Development Kit 8](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Apache Maven 3.x](https://maven.apache.org/download.cgi)
+
+Please follow the [Java installation guide](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html) and the [Maven installation guide](https://maven.apache.org/install.html).
 
 ### Compiling the code:
 
@@ -16,7 +18,21 @@ A command-line interface (CLI) for running algorithm comparison tool on simulate
 
 The jar file, **causal-compare-x.x.x-jar-with-dependencies.jar**, is in the **target** directory.
 
-### Running the program:
+## Running the program:
+
+### Prerequisites - You must have the following installed:
+* [Java SE Development Kit 8](https://www.oracle.com/technetwork/java/javase/downloads/index.html) **or** [Java SE Runtime Environment 8](https://www.java.com/en/download/)
+
+Please follow the [Java installation guide](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
+
+### Execution
+Make sure you are using Java 8.  You can check by typing the following:
+```java -version```
+
+A simple command to run the program:
+```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config comparison-tool.xml```
+
+** Note that x.x.x is the version number.  For an example, causal-compare-0.1.2-jar-with-dependencies.jar
 
 #### Command-line Options
 
@@ -63,7 +79,8 @@ File Structure
     </comparison>
 </comparisontool>
 ```
-An example of a configuration file: 
+
+Below is an example of an XML Configuration File:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <comparisontool>
@@ -105,6 +122,3 @@ An example of a configuration file:
     </comparison>
 </comparisontool>
 ```
-#### Execution
-A simple command to run the program:
-```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config comparison-tool.xml```
