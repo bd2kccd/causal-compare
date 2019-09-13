@@ -26,13 +26,14 @@ The jar file, **causal-compare-x.x.x-jar-with-dependencies.jar**, is in the **ta
 Please follow the [Java installation guide](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
 
 ### Execution
-Make sure you are using Java 8.  You can check by typing the following:
-```java -version```
 
-A simple command to run the program:
+Make sure you are using Java 8.  You can check by typing the following: ```java -version```
+1. If you are not building for source, you can download the pre-compiled jar [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/).
+2. Copy the sample XML configuration file below to a file and save it as **comparison-tool.xml** in the same directory as the jar file.
+4. To run the program, open a terminal from where the jar file is and type the following command:
 ```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config comparison-tool.xml```
 
-** Note that x.x.x is the version number.  For an example, causal-compare-0.1.2-jar-with-dependencies.jar
+** Replace the x.x.x with the version number.  For an example, causal-compare-**0.1.2**-jar-with-dependencies.jar
 
 #### Command-line Options
 
@@ -80,7 +81,7 @@ File Structure
 </comparisontool>
 ```
 
-Below is an example of an XML Configuration File:
+#### Sample XML Configuration File
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <comparisontool>
@@ -89,14 +90,10 @@ Below is an example of an XML Configuration File:
             <graphtype>RandomForward</graphtype>
             <modeltype>SemSimulation</modeltype>
         </simulation>
-        <simulation source="directory">
-            <path>src/test/resources/data/simulation</path>
-        </simulation>
     </simulations>
     <algorithms>
-        <algorithm name="gfci">
+        <algorithm name="pc-all">
             <test>fisher-z-test</test>
-            <score>sem-bic</score>
         </algorithm>
         <algorithm name="fges">
             <score>sem-bic</score>
@@ -104,21 +101,15 @@ Below is an example of an XML Configuration File:
     </algorithms>
     <statistics>
         <statistic>adjacencyPrecision</statistic>
-        <statistic>arrowheadRecall</statistic>
         <statistic>adjacencyRecall</statistic>
+        <statistic>SHD</statistic>
     </statistics>
     <parameters>
-        <parameter name="numRuns">1</parameter>
-        <parameter name="numMeasures">4,6</parameter>
+        <parameter name="numMeasures">8,4</parameter>
         <parameter name="avgDegree">4</parameter>
     </parameters>
     <comparison>
         <property name="showAlgorithmIndices">true</property>
-        <property name="showSimulationIndices">true</property>
-        <property name="sortByUtility">true</property>
-        <property name="showUtilities">true</property>
-        <property name="saveSearchGraphs">true</property>
-        <property name="tabDelimitedTables">true</property>
     </comparison>
 </comparisontool>
 ```
