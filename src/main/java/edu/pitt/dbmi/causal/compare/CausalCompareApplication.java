@@ -89,7 +89,7 @@ public class CausalCompareApplication {
 
         String outDir = cmdArgs.getOutDirectory().toString();
         String prefix = cmdArgs.getFileNamePrefix();
-        Path outTxtFile = Paths.get(outDir, String.format("%s.stdout", prefix));
+        Path outTxtFile = Paths.get(outDir, String.format("%s.stdout.txt", prefix));
         try (PrintStream out = new PrintStream(new BufferedOutputStream(Files.newOutputStream(outTxtFile, StandardOpenOption.CREATE)), true)) {
             parameters.set("printStream", out);
 
@@ -99,7 +99,7 @@ public class CausalCompareApplication {
                     .forEach(e -> e.setStdout(out));
 
             Comparison comparison = ComparisonProperties.getInstance().create(config.getComparisonProperties());
-            comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, String.format("%s.stat", prefix), algorithms, statistics, parameters);
+            comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, String.format("%s.stat.txt", prefix), algorithms, statistics, parameters);
         }
     }
 
