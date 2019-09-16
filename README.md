@@ -29,8 +29,8 @@ Please follow the [Java installation guide](https://docs.oracle.com/javase/8/doc
 
 Make sure you are using Java 8.  You can check by typing the following: ```java -version```
 1. If you are not building for source, you can download the pre-compiled jar [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/).
-2. Copy the sample XML configuration file below to a file and save it as **comparison-tool.xml** in the same directory as the jar file.
-4. To run the program, open a terminal from where the jar file is and type the following command:
+2. Download the sample configuration file from [src/test/resources/data/sample_configuration.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
+4. To run the program, open a terminal from the directory in which the jar file is located and type:
 ```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config comparison-tool.xml```
 
 ** Replace the x.x.x with the version number.  For an example, causal-compare-**0.1.2**-jar-with-dependencies.jar
@@ -77,39 +77,6 @@ File Structure
         <property>...</property>
         <property>...</property>
         <property>...</property>
-    </comparison>
-</comparisontool>
-```
-
-#### Sample XML Configuration File
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<comparisontool>
-    <simulations>
-        <simulation source="generate">
-            <graphtype>RandomForward</graphtype>
-            <modeltype>SemSimulation</modeltype>
-        </simulation>
-    </simulations>
-    <algorithms>
-        <algorithm name="pc-all">
-            <test>fisher-z-test</test>
-        </algorithm>
-        <algorithm name="fges">
-            <score>sem-bic</score>
-        </algorithm>
-    </algorithms>
-    <statistics>
-        <statistic>adjacencyPrecision</statistic>
-        <statistic>adjacencyRecall</statistic>
-        <statistic>SHD</statistic>
-    </statistics>
-    <parameters>
-        <parameter name="numMeasures">8,4</parameter>
-        <parameter name="avgDegree">4</parameter>
-    </parameters>
-    <comparison>
-        <property name="showAlgorithmIndices">true</property>
     </comparison>
 </comparisontool>
 ```
