@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comparisontool>
+    <simulations>
+        <simulation source="generate">
+            <graphtype>RandomForward</graphtype>
+            <modeltype>SemSimulation</modeltype>
+        </simulation>
+    </simulations>
+    <algorithms>
+        <algorithm name="pc-all">
+            <test>fisher-z-test</test>
+        </algorithm>
+        <algorithm name="fges">
+            <score>sem-bic</score>
+        </algorithm>
+    </algorithms>
+    <statistics>
+        <statistic>adjacencyPrecision</statistic>
+        <statistic>adjacencyRecall</statistic>
+        <statistic>SHD</statistic>
+    </statistics>
+    <parameters>
+        <parameter name="numMeasures">8,4</parameter>
+        <parameter name="avgDegree">4</parameter>
+    </parameters>
+    <comparison>
+        <property name="showAlgorithmIndices">true</property>
+    </comparison>
+</comparisontool>
