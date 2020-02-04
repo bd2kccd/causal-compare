@@ -28,7 +28,7 @@ Please follow the [Java installation guide](https://docs.oracle.com/javase/8/doc
 ### Execution
 
 Make sure you are using Java 8.  You can check by typing the following: ```java -version```
-1. If you are not building for source, you can download the pre-compiled jar [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/).
+1. If you are not building for source, you can download the pre-compiled jar [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.1.2/causal-compare-0.1.2-distribution.zip).
 2. Download the sample configuration file from [src/test/resources/data/sample_configuration.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
 4. To run the program, open a terminal from the directory in which the jar file is located and type:
 ```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config sample_configuration.xml```
