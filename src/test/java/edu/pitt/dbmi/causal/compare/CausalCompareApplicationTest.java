@@ -30,12 +30,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBException;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  *
@@ -43,10 +44,11 @@ import org.junit.rules.TemporaryFolder;
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
+@Disabled
 public class CausalCompareApplicationTest {
 
-    @Rule
-    public final TemporaryFolder tmpFolder = new TemporaryFolder();
+    @TempDir
+    public Path tmpFolder;
 
     /**
      * Test of main method, of class CausalCompareApplication.
@@ -56,17 +58,15 @@ public class CausalCompareApplicationTest {
     @Test
     public void testMain() throws IOException {
         String configFile = getClass().getResource("/data/comparison-tool.xml").getFile();
-        String dirOut = tmpFolder.newFolder("comparison").toString();
         String prefix = "test_compare";
         String[] args = {
             "--config", configFile,
             "--prefix", prefix,
-            "--out", dirOut
+            "--out", tmpFolder.toString()
         };
         CausalCompareApplication.main(args);
     }
 
-    @Ignore
     @Test
     public void testCreateXMLConfig() {
         System.out.println("================================================================================");
@@ -129,6 +129,12 @@ public class CausalCompareApplicationTest {
         } catch (IOException exception) {
             exception.printStackTrace(System.err);
         }
+    }
+
+    private List<Path> listFiles(Path folder) throws IOException {
+        return Files.list(folder)
+                .filter(Files::isRegularFile)
+                .collect(Collectors.toList());
     }
 
 }
