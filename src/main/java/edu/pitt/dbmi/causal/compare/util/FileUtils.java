@@ -16,35 +16,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.util;
+
+import edu.cmu.tetrad.graph.Graph;
+import edu.cmu.tetrad.graph.GraphUtils;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * May 24, 2020 2:20:37 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+public final class FileUtils {
 
-    private static final long serialVersionUID = -2399322388638175289L;
-
-    public ComparisonException() {
+    private FileUtils() {
     }
 
-    public ComparisonException(String message) {
-        super(message);
+    public static Graph readGraph(Path file) throws IOException {
+        try (Reader reader = Files.newBufferedReader(file)) {
+            return GraphUtils.readerToGraphTxt(reader);
+        }
     }
 
-    public ComparisonException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ComparisonException(Throwable cause) {
-        super(cause);
-    }
-
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public static void deleteNonemptyDirectory(Path dir) throws IOException {
+        Files.walk(dir)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
     }
 
 }

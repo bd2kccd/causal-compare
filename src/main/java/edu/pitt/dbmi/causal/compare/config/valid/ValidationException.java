@@ -16,34 +16,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.config.valid;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * Aug 24, 2019 2:40:25 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+public class ValidationException extends Exception {
 
-    private static final long serialVersionUID = -2399322388638175289L;
+    private static final long serialVersionUID = 3951411103324923272L;
 
-    public ComparisonException() {
+    public ValidationException() {
     }
 
-    public ComparisonException(String message) {
+    public ValidationException(String message) {
         super(message);
     }
 
-    public ComparisonException(String message, Throwable cause) {
+    public ValidationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ComparisonException(Throwable cause) {
+    public ValidationException(Throwable cause) {
         super(cause);
     }
 
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ValidationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

@@ -16,35 +16,46 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.config;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * May 17, 2020 1:03:59 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+@XmlRootElement(name = "compareBy")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class CompareByConfiguration {
 
-    private static final long serialVersionUID = -2399322388638175289L;
+    @XmlElement(name = "search")
+    private SearchConfiguration search;
 
-    public ComparisonException() {
+    @XmlElement(name = "graph")
+    private GraphConfiguration graph;
+
+    public CompareByConfiguration() {
     }
 
-    public ComparisonException(String message) {
-        super(message);
+    public SearchConfiguration getSearch() {
+        return search;
     }
 
-    public ComparisonException(String message, Throwable cause) {
-        super(message, cause);
+    public void setSearch(SearchConfiguration search) {
+        this.search = search;
     }
 
-    public ComparisonException(Throwable cause) {
-        super(cause);
+    public GraphConfiguration getGraph() {
+        return graph;
     }
 
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public void setGraph(GraphConfiguration graph) {
+        this.graph = graph;
     }
 
 }

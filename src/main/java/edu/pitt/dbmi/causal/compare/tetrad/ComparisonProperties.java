@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 University of Pittsburgh.
+ * Copyright (C) 2020 University of Pittsburgh.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 package edu.pitt.dbmi.causal.compare.tetrad;
 
 import edu.cmu.tetrad.algcomparison.Comparison;
-import edu.pitt.dbmi.causal.compare.conf.Property;
+import edu.pitt.dbmi.causal.compare.config.Property;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;

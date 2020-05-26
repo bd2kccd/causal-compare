@@ -16,35 +16,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.util;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * May 24, 2020 9:12:15 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+public final class GraphCompareUtils {
 
-    private static final long serialVersionUID = -2399322388638175289L;
-
-    public ComparisonException() {
+    private GraphCompareUtils() {
     }
 
-    public ComparisonException(String message) {
-        super(message);
-    }
-
-    public ComparisonException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ComparisonException(Throwable cause) {
-        super(cause);
-    }
-
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
+//    public static Algorithms getAlgorithms(GraphConfiguration graphConfig) throws IOException {
+//        Algorithms algorithms = new Algorithms();
+//
+//        Graph trueGraph = FileUtils.readGraph(Paths.get(graphConfig.getTrueGraphFile()));
+//        for (ResultGraph resultGraph : graphConfig.getResultGraphs()) {
+//            Graph graph = FileUtils.readGraph(Paths.get(resultGraph.getGraphFile()));
+//            algorithms.add(new ExternalAlgorithmWrap(resultGraph, graph, trueGraph));
+//        }
+//
+//        return algorithms;
+//    }
 }

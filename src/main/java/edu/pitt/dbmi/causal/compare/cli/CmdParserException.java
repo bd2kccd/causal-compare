@@ -16,35 +16,48 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.cli;
+
+import org.apache.commons.cli.Options;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * Aug 17, 2019 11:57:59 AM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+public class CmdParserException extends Exception {
 
-    private static final long serialVersionUID = -2399322388638175289L;
+    private static final long serialVersionUID = 7844029823733631435L;
 
-    public ComparisonException() {
+    private final Options options;
+
+    public CmdParserException(Options options) {
+        this.options = options;
     }
 
-    public ComparisonException(String message) {
+    public CmdParserException(Options options, String message) {
         super(message);
+        this.options = options;
     }
 
-    public ComparisonException(String message, Throwable cause) {
+    public CmdParserException(Options options, String message, Throwable cause) {
         super(message, cause);
+        this.options = options;
     }
 
-    public ComparisonException(Throwable cause) {
+    public CmdParserException(Options options, Throwable cause) {
         super(cause);
+        this.options = options;
     }
 
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public CmdParserException(Options options, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+        this.options = options;
+    }
+
+    public Options getOptions() {
+        return options;
     }
 
 }
