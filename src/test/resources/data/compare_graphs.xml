@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comparison>
+    <compareBy>
+        <graph>
+            <trueGraph>src/test/resources/data/graph/simulation/graph/graph.1.txt</trueGraph>
+            <simulationPath>src/test/resources/data/graph/simulation</simulationPath>
+            <resultGraphs>
+                <graph>
+                    <description>FGES</description>
+                    <elapseTime>1590423604575</elapseTime>
+                    <graphFile>src/test/resources/data/graph/result_graphs/graph_fges.txt</graphFile>
+                </graph>
+                <graph>
+                    <description>GFCI</description>
+                    <elapseTime>1590423604575</elapseTime>
+                    <graphFile>src/test/resources/data/graph/result_graphs/graph_gfic.txt</graphFile>
+                </graph>
+                <graph>
+                    <description>PC</description>
+                    <elapseTime>1590423604576</elapseTime>
+                    <graphFile>src/test/resources/data/graph/result_graphs/graph_pc.txt</graphFile>
+                </graph>
+            </resultGraphs>
+        </graph>
+    </compareBy>
+    <statistics>
+        <statistic>adjacencyPrecision</statistic>
+        <statistic>arrowheadRecall</statistic>
+        <statistic>adjacencyRecall</statistic>
+    </statistics>
+    <properties>
+        <property name="showAlgorithmIndices">true</property>
+        <property name="showSimulationIndices">true</property>
+        <property name="sortByUtility">true</property>
+        <property name="showUtilities">true</property>
+        <property name="saveSearchGraphs">true</property>
+        <property name="tabDelimitedTables">true</property>
+    </properties>
+</comparison>

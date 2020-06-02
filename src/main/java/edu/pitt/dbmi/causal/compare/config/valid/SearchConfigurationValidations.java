@@ -16,35 +16,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.config.valid;
+
+import edu.pitt.dbmi.causal.compare.config.SearchConfiguration;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * May 21, 2020 4:11:24 PM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+public final class SearchConfigurationValidations {
 
-    private static final long serialVersionUID = -2399322388638175289L;
-
-    public ComparisonException() {
+    private SearchConfigurationValidations() {
     }
 
-    public ComparisonException(String message) {
-        super(message);
-    }
+    public static void validate(SearchConfiguration config) throws ValidationException {
+        if (config == null) {
+            return;
+        }
 
-    public ComparisonException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ComparisonException(Throwable cause) {
-        super(cause);
-    }
-
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+        SimulationConfigurationValidations.validate(config.getSimulations());
+        AlgorithmConfigurationValidations.validate(config.getAlgorithms());
+        ParameterConfigurationValidations.validate(config.getParameters());
     }
 
 }

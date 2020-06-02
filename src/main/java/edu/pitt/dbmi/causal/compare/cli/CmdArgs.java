@@ -16,35 +16,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.cli;
+
+import edu.pitt.dbmi.causal.compare.config.ComparisonConfiguration;
+import java.nio.file.Path;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * Aug 17, 2019 11:49:53 AM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+public class CmdArgs {
 
-    private static final long serialVersionUID = -2399322388638175289L;
+    protected ComparisonConfiguration configuration;
 
-    public ComparisonException() {
+    protected Path outDirectory;
+
+    protected String fileNamePrefix;
+
+    public CmdArgs() {
     }
 
-    public ComparisonException(String message) {
-        super(message);
+    public ComparisonConfiguration getConfiguration() {
+        return configuration;
     }
 
-    public ComparisonException(String message, Throwable cause) {
-        super(message, cause);
+    public Path getOutDirectory() {
+        return outDirectory;
     }
 
-    public ComparisonException(Throwable cause) {
-        super(cause);
-    }
-
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public String getFileNamePrefix() {
+        return fileNamePrefix;
     }
 
 }

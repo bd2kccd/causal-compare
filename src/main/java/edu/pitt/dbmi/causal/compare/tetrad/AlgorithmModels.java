@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 University of Pittsburgh.
+ * Copyright (C) 2020 University of Pittsburgh.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,8 +22,14 @@ import edu.cmu.tetrad.algcomparison.algorithm.Algorithm;
 import edu.cmu.tetrad.algcomparison.algorithm.AlgorithmFactory;
 import edu.cmu.tetrad.algcomparison.algorithm.Algorithms;
 import edu.cmu.tetrad.annotation.AlgorithmAnnotations;
+import edu.cmu.tetrad.graph.Graph;
 import edu.pitt.dbmi.causal.compare.ComparisonException;
-import edu.pitt.dbmi.causal.compare.conf.AlgorithmConfig;
+import edu.pitt.dbmi.causal.compare.config.AlgorithmConfiguration;
+import edu.pitt.dbmi.causal.compare.config.GraphConfiguration;
+import edu.pitt.dbmi.causal.compare.config.ResultGraph;
+import edu.pitt.dbmi.causal.compare.util.FileUtils;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +60,7 @@ public final class AlgorithmModels extends AbstractAnnotatedClassFactory<Algorit
         return AlgorithmAnnotations.getInstance().requireScore(clazz);
     }
 
-    public Algorithm create(AlgorithmConfig config) throws ComparisonException {
+    public Algorithm create(AlgorithmConfiguration config) throws ComparisonException {
         try {
             return AlgorithmFactory.create(
                     getClass(config.getName()),
@@ -65,10 +71,22 @@ public final class AlgorithmModels extends AbstractAnnotatedClassFactory<Algorit
         }
     }
 
-    public Algorithms create(List<AlgorithmConfig> configs) throws ComparisonException {
+    public Algorithms create(List<AlgorithmConfiguration> configs) throws ComparisonException {
         Algorithms algorithms = new Algorithms();
-        for (AlgorithmConfig config : configs) {
+        for (AlgorithmConfiguration config : configs) {
             algorithms.add(create(config));
+        }
+
+        return algorithms;
+    }
+
+    public Algorithms create(GraphConfiguration graphConfig) throws IOException {
+        Algorithms algorithms = new Algorithms();
+
+        Graph trueGraph = FileUtils.readGraph(Paths.get(graphConfig.getTrueGraph()));
+        for (ResultGraph resultGraph : graphConfig.getResultGraphs()) {
+            Graph graph = FileUtils.readGraph(Paths.get(resultGraph.getGraphFile()));
+            algorithms.add(new ExternalAlgorithmWrap(resultGraph, graph, trueGraph));
         }
 
         return algorithms;

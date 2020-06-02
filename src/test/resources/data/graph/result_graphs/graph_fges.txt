@@ -1,0 +1,18 @@
+Graph Nodes:
+X1;X2;X3;X4;X5;X6;X7;X8;X9;X10
+
+Graph Edges:
+1. X2 --> X1
+2. X2 --> X10
+3. X2 --> X7
+4. X3 --> X1
+5. X3 --- X2
+6. X4 --- X3
+7. X4 --> X7
+8. X5 --> X1
+9. X5 --> X10
+10. X9 --- X4
+
+Graph Attributes:
+BIC: -6189.625522
+

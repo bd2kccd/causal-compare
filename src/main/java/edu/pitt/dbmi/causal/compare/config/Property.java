@@ -16,35 +16,52 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package edu.pitt.dbmi.causal.compare;
+package edu.pitt.dbmi.causal.compare.config;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  *
- * Aug 19, 2019 2:47:00 PM
+ * Aug 28, 2019 10:58:16 AM
  *
  * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-public class ComparisonException extends Exception {
+@XmlRootElement(name = "property")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Property {
 
-    private static final long serialVersionUID = -2399322388638175289L;
+    @XmlAttribute
+    private String name;
 
-    public ComparisonException() {
+    @XmlValue
+    private String value;
+
+    public Property() {
     }
 
-    public ComparisonException(String message) {
-        super(message);
+    public Property(String name, String value) {
+        this.name = name;
+        this.value = value;
     }
 
-    public ComparisonException(String message, Throwable cause) {
-        super(message, cause);
+    public String getName() {
+        return name;
     }
 
-    public ComparisonException(Throwable cause) {
-        super(cause);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public ComparisonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
 }
