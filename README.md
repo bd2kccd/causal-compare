@@ -11,12 +11,12 @@ Please follow the [Java installation guide](https://docs.oracle.com/en/java/java
 ### Execution
 
 Make sure you are using Java 11.  You can check by typing the following: ```java -version```
-1. If you are not building from source, you can download the distribution zip file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.1.3/causal-compare-0.1.3-distribution.zip) and extract the pre-compiled jar.
-2. Download the sample configuration file from [src/test/resources/data/sample_configuration.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
+1. If you are not building from source, you can download the distribution zip file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.2.0/causal-compare-0.2.0-distribution.zip) and extract the pre-compiled jar.
+2. Download the sample configuration file from [src/test/resources/data/compare_search.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
 4. To run the program, open a terminal from the directory in which the jar file is located and type:
 ```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config sample_configuration.xml```
 
-> Replace the x.x.x with the version number.  For an example, causal-compare-**0.1.3**-jar-with-dependencies.jar
+> Replace the x.x.x with the version number.  For an example, causal-compare-**0.2.0**-jar-with-dependencies.jar
 
 #### Command-line Options
 ```
@@ -31,43 +31,102 @@ Make sure you are using Java 11.  You can check by typing the following: ```java
 ```
 
 #### XML Configuration File
-
-File Structure
+File structure for comparison using result graphs obtained from search algorithms running on simulated data:
 ```xml
-<comparisontool>
-    <!--list of simulations-->
-    <simulations>
-        <simulation>...</simulation>
-        <simulation>...</simulation>
-    </simulations>
-    
-    <!--list of algorithms-->
-    <algorithms>
-        <algorithm>....</algorithm>
-        <algorithm>...</algorithm>
-    </algorithms>
-    
-    <!--list of statistics-->
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comparison>
+    <compareBy>
+        <!--compare by graphs obtained from search algorithm-->
+        <graph>
+            <!--path to true graph file-->
+            <trueGraph>...</trueGraph>
+
+            <!--path to where data simulation are saved-->
+            <simulationPath>...</simulationPath>
+
+            <!--list of result graphs-->
+            <resultGraphs>
+                <graph>
+                    <!--description for the result graph-->
+                    <description>...</description>
+
+                    <!--the time it takes for the search algorithm to finish-->
+                    <elapseTime>...</elapseTime>
+
+                    <!--path to the result graph file-->
+                    <graphFile>...</graphFile>
+                </graph>
+                <graph>
+                    <description>...</description>
+                    <elapseTime>...</elapseTime>
+                    <graphFile>...</graphFile>
+                </graph>
+            </resultGraphs>
+        </graph>
+    </compareBy>
+
+    <!--list of comparison statistics-->
     <statistics>
         <statistic>...</statistic>
         <statistic>...</statistic>
+    </statistics>
+
+    <!--list of comparison tool properties-->
+    <properties>
+        <property name="...">...</property>
+        <property name="...">...</property>
+    </properties>
+</comparison>
+```
+File structure for comparison running search algorithms on simulated data:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comparison>
+    <compareBy>
+        <!--compare by search algorithms-->
+        <search>
+
+            <!--list of data simulations-->
+            <simulations>
+
+                <!--path to where data simulation are saved-->
+                <simulation source="directory">
+                    <path>...</path>
+                </simulation>
+
+                <!--run simulation to generate data-->
+                <simulation source="generate">
+                    <graphtype>...</graphtype>
+                    <modeltype>...</modeltype>
+                </simulation>
+            </simulations>
+
+            <!--list of search algorithms-->
+            <algorithms>
+                <algorithm name="...">...</algorithm>
+                <algorithm name="...">...</algorithm>
+            </algorithms>
+
+            <!--list of search algorithm parameters-->
+            <parameters>
+                <parameter name="...">...</parameter>
+                <parameter name="...">...</parameter>
+            </parameters>
+        </search>
+    </compareBy>
+
+    <!--list of comparison statistics-->
+    <statistics>
+        <statistic>...</statistic>
         <statistic>...</statistic>
     </statistics>
-    
-    <!--list of parameters-->
-    <parameters>
-        <parameter>...</parameter>
-        <parameter>...</parameter>
-        <parameter>...</parameter>
-    </parameters>
-    
-    <!--list of comparison properties-->
-    <comparison>
-        <property>...</property>
-        <property>...</property>
-        <property>...</property>
-    </comparison>
-</comparisontool>
+
+    <!--list of comparison tool properties-->
+    <properties>
+        <property name="...">true</property>
+        <property name="...">true</property>
+    </properties>
+</comparison>
 ```
 
 ## Building the software
