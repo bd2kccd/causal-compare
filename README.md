@@ -14,7 +14,7 @@ Make sure you are using Java 11.  You can check by typing the following: ```java
 1. If you are not building from source, you can download the distribution zip file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.2.0/causal-compare-0.2.0-jar-with-dependencies.jar).
 2. Download the sample configuration file from [src/test/resources/data/compare_search.xml](src/test/resources/data/compare_search.xml) to the same directory as the jar file.
 4. To run the program, open a terminal from the directory in which the jar file is located and type:
-```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config sample_configuration.xml```
+```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config compare_search.xml```
 
 > Replace the x.x.x with the version number.  For an example, causal-compare-**0.2.0**-jar-with-dependencies.jar
 
