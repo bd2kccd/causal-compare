@@ -31,7 +31,93 @@ Make sure you are using Java 11.  You can check by typing the following: ```java
 ```
 
 #### XML Configuration File
-File structure for comparison using result graphs obtained from search algorithms running on simulated data:
+There are two ways of using the comparison tool to compare search algorithms.
+
+The first way is to use Tetrad to generate simulated datasets and run search algorithms on those datasets.  You will need to specify the following in the XML configuration file:
+* A list of data and algorithms
+	* A list of simulation to generate data.
+	* A list of search algorithms.
+	* A list of algorithm parameters.
+* A list of comparison statistics.
+* A list of properties for comparison tool.
+
+File structure for comparison running search algorithms on simulated data:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comparison>
+    <compareBy>
+        <!--compare by search algorithms-->
+        <search>
+
+            <!--list of data simulations-->
+            <simulations>
+            
+                <!--run simulation to generate data-->
+                <simulation source="generate">
+                    <graphtype>...</graphtype>
+                    <modeltype>...</modeltype>
+                </simulation>
+            </simulations>
+
+            <!--list of search algorithms-->
+            <algorithms>
+                <algorithm name="...">...</algorithm>
+                <algorithm name="...">...</algorithm>
+            </algorithms>
+
+            <!--list of search algorithm parameters-->
+            <parameters>
+                <parameter name="...">...</parameter>
+                <parameter name="...">...</parameter>
+            </parameters>
+        </search>
+    </compareBy>
+
+    <!--list of comparison statistics-->
+    <statistics>
+        <statistic>...</statistic>
+        <statistic>...</statistic>
+    </statistics>
+
+    <!--list of comparison tool properties-->
+    <properties>
+        <property name="...">true</property>
+        <property name="...">true</property>
+    </properties>
+</comparison>
+```
+ You can use Tetrad to generate simulated datasets and use them later in the comparison tool.  You just need to specify the path to where the simulate datasets are saved in the XML file:
+ ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comparison>
+    <compareBy>
+        <!--compare by search algorithms-->
+        <search>
+
+            <!--list of data simulations-->
+            <simulations>
+                
+                <!--path to where data simulation are saved-->
+                <simulation source="directory">
+                    <path>...</path>
+                </simulation>
+            </simulations>
+        </search>
+    </compareBy>
+    
+    ...
+    
+</comparison>
+```
+ The second way is to compare result graphs obtained from other search algorithms.    Note that **the true graphs and result graphs have to be in a Tetrad format**.  You would still use Tetrad to generate simulated datasets for other search algorithms to run on.   You will need to specify the following in the XML configuration file:
+* A list of graphs
+	* The path to the true graph.
+	* The path to where Tetrad saves the simulated datasets.
+	* A list of result graphs produced by other algorithms.
+* A list of comparison statistics.
+* A list of properties for comparison tool.
+
+File structure for comparison using result graphs obtained from other search algorithms running on Tetrad simulated data:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <comparison>
@@ -78,71 +164,26 @@ File structure for comparison using result graphs obtained from search algorithm
     </properties>
 </comparison>
 ```
-File structure for comparison running search algorithms on simulated data:
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<comparison>
-    <compareBy>
-        <!--compare by search algorithms-->
-        <search>
-
-            <!--list of data simulations-->
-            <simulations>
-
-                <!--path to where data simulation are saved-->
-                <simulation source="directory">
-                    <path>...</path>
-                </simulation>
-
-                <!--run simulation to generate data-->
-                <simulation source="generate">
-                    <graphtype>...</graphtype>
-                    <modeltype>...</modeltype>
-                </simulation>
-            </simulations>
-
-            <!--list of search algorithms-->
-            <algorithms>
-                <algorithm name="...">...</algorithm>
-                <algorithm name="...">...</algorithm>
-            </algorithms>
-
-            <!--list of search algorithm parameters-->
-            <parameters>
-                <parameter name="...">...</parameter>
-                <parameter name="...">...</parameter>
-            </parameters>
-        </search>
-    </compareBy>
-
-    <!--list of comparison statistics-->
-    <statistics>
-        <statistic>...</statistic>
-        <statistic>...</statistic>
-    </statistics>
-
-    <!--list of comparison tool properties-->
-    <properties>
-        <property name="...">true</property>
-        <property name="...">true</property>
-    </properties>
-</comparison>
-```
 
 ## Building the software
 If you prefer to compile the code, please follow the instruction below.
 
 ### Prerequisites - You must have the following installed:
+* [Git](https://git-scm.com/downloads)
 * [Java SE Development Kit 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or OpenJDK 11
 * [Apache Maven 3.x](https://maven.apache.org/download.cgi)
 
-Please follow the [Java installation guide](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) for Java SE Development Kit 11 and the [Maven installation guide](https://maven.apache.org/install.html).
+Please follow the [Git](https://git-scm.com/docs), [Java installation guide](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) for Java SE Development Kit 11 and the [Maven installation guide](https://maven.apache.org/install.html).
 
-### Compiling the code:
+### Compiling the code from command-line:
 
- 1. Download the source code.
- 2. Extract the source code.
- 3. Go to the parent folder **causal-compare**.
- 4. Type the following command: ```mvn clean package```
+ Download the source code: 
+ ```$ git clone https://github.com/bd2kccd/causal-compare.git```
+ 
+Go to the project directory:
+ ```$ cd causal-compare```
+ 
+ Build the jar file from the source code:
+ ```[causal-compare]$ mvn clean package```
 
 The jar file, **causal-compare-x.x.x-jar-with-dependencies.jar**, is in the **target** directory.
