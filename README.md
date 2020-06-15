@@ -1,3 +1,6 @@
+
+
+
 # causal-compare
 A command-line interface (CLI) for running algorithm comparison tool on simulated data.
 
@@ -11,8 +14,8 @@ Please follow the [Java installation guide](https://docs.oracle.com/en/java/java
 ### Execution
 
 Make sure you are using Java 11.  You can check by typing the following: ```java -version```
-1. If you are not building from source, you can download the distribution zip file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.2.0/causal-compare-0.2.0-jar-with-dependencies.jar).
-2. Download the sample configuration file from [src/test/resources/data/sample_configuration.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
+1. If you are not building from source, you can download the jar file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.2.0/causal-compare-0.2.0-jar-with-dependencies.jar).
+2. Download the sample configuration file [sample_configuration.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
 4. To run the program, open a terminal from the directory in which the jar file is located and type:
 ```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config sample_configuration.xml```
 
@@ -35,11 +38,11 @@ There are two ways of using the comparison tool to compare search algorithms.
 
 The first way is to use Tetrad to generate simulated datasets and run search algorithms on those datasets.  You will need to specify the following in the XML configuration file:
 * A list of data and algorithms
-	* A list of simulation to generate data.
+	* A list of simulations to generate data.
 	* A list of search algorithms.
 	* A list of algorithm parameters.
-* A list of comparison statistics.
-* A list of properties for comparison tool.
+* A list of [comparison statistics](#comparison-statistics).
+* A list of [comparison properties](#comparison-properties).
 
 File structure for comparison running search algorithms on simulated data:
 ```xml
@@ -109,13 +112,18 @@ File structure for comparison running search algorithms on simulated data:
     
 </comparison>
 ```
- The second way is to compare result graphs obtained from other search algorithms.    Note that **the true graphs and result graphs have to be in a Tetrad format**.  You would still use Tetrad to generate simulated datasets for other search algorithms to run on.   You will need to specify the following in the XML configuration file:
+ The second way is to compare from result graphs.  You need to do the following:
+ 1. Run Tetrad to simulate some datasets and save them to a folder.  Click [here](http://cmu-phil.github.io/tetrad/manual/#simulation_box) for tutorial.
+ 2. Run search algorithms on other platforms on that datasets.
+ 3. Save the result graphs.
+
+Note that **the true graphs and result graphs have to be in a [Tetrad graph format](#tetrad-graph-format)**.    You will need to specify the following in the XML configuration file:
 * A list of graphs
 	* The path to the true graph.
-	* The path to where Tetrad saves the simulated datasets.
-	* A list of result graphs produced by other algorithms.
-* A list of comparison statistics.
-* A list of properties for comparison tool.
+	* The path to where the simulated datasets are saved.
+	* A list of result graphs.
+* A list of [comparison statistics](#comparison-statistics).
+* A list of [comparison properties](#comparison-properties).
 
 File structure for comparison using result graphs obtained from other search algorithms running on Tetrad simulated data:
 ```xml
@@ -187,3 +195,66 @@ Go to the project directory:
  ```[causal-compare]$ mvn clean package```
 
 The jar file, **causal-compare-x.x.x-jar-with-dependencies.jar**, is in the **target** directory.
+
+## Configuration Options
+### Comparison Statistics
+|Statistic|Description                                           |
+|---------|------------------------------------------------------|
+|AR       |Adjacency Recall                                      |
+|AHP      |Arrowhead precision                                   |
+|AHR      |Arrowhead recall                                      |
+|AHPC     |Arrowhead precision (common edges)                    |
+|AHRC     |Arrowhead recall (common edges)                       |
+|ATN      |Adjacency True Negatives                              |
+|ATP      |Adjacency True Positives                              |
+|ATPR     |Adjacency True Positive Rate                          |
+|AFN      |Adjacency False Negatives                             |
+|AFP      |Adjacency False Positives                             |
+|AHTN     |Arrowhead True Negatives                              |
+|AHTP     |Arrowhead True Positives                              |
+|F1Adj    |F1 statistic for adjacencies                          |
+|F1All    |F1 statistic for adjacencies and orientations combined|
+|F1Arrow  |F1 statistic for arrows                               |
+|McAdj    |Matthew's correlation coefficient for adjacencies     |
+|McArrow  |Matthew's correlation coefficient for arrowheads      |
+|SHD      |Structural Hamming Distance                           |
+|NICP     |Node in cycle precision                               |
+|NICR     |Node in cycle recall                                  |
+|AMB      |Number of Ambiguous Triples                           |
+|%AMB     |Percent Ambiguous Triples                             |
+|BID      |Percent Bidirected Edges                              |
+|EdgesEst |Number of Edges in the Estimated Graph                |
+|EdgesT   |Number of Edges in the True Graph                     |
+|TP       |Tail precision                                        |
+|TR       |Tail recall                                           |
+|2CP      |2-cycle precision                                     |
+|2CR      |2-cycle recall                                        |
+|E        |Elapsed Time                                          |
+
+### Comparison Properties
+|Property Name          |Description                                                                                                                         |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------|
+|setShowSimulation      |True if simulation indices should be shown in the comparison table, false if not                                                    |
+|setShowAlgorithmIndices|True if algorithm indices should be shown in the comparison table, false if not.                                                    |
+|setShowUtilities       |True if utilities should be shown in the comparison table, false if not                                                             |
+|setSortByUtility       |True if results should be sorted high to low by utility, false if not.                                                              |
+|setSavePatterns        |True if patterns of DAGs should be saved out with the results.                                                                      |
+|setSavePags            |True if PAGs (partial ancestral graphs) should be saved out with the results.                                                       |
+|setTabDelimitedTables  |True if tables should be output in tab-delimited form, false if they should be printed in space-delimited form with aligned columns.|
+|setComparisonGraph     |Sets the type of graph results are compared to. The options are: true DAG, pattern of the true DAG, PAG o the true DAG              |
+
+## Tetrad Graph Format
+A Tetrad graph.txt file contains the following:
+* A list of variables.
+* A list of edges.
+
+Below is an example of a Tetrad graph containg variables x, y and z:
+```
+Graph Nodes:
+x;y;z
+
+Graph Edges:
+1. x --> y
+2. z --> x
+3. z --> y
+```
