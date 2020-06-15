@@ -11,7 +11,7 @@ Please follow the [Java installation guide](https://docs.oracle.com/en/java/java
 ### Execution
 
 Make sure you are using Java 11.  You can check by typing the following: ```java -version```
-1. If you are not building from source, you can download the distribution zip file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.2.0/causal-compare-0.2.0-jar-with-dependencies.jar).
+1. If you are not building from source, you can download the jar file [here](https://cloud.ccd.pitt.edu/nexus/content/repositories/releases/edu/pitt/dbmi/causal-compare/0.2.0/causal-compare-0.2.0-jar-with-dependencies.jar).
 2. Download the sample configuration file from [src/test/resources/data/sample_configuration.xml](src/test/resources/data/sample_configuration.xml) to the same directory as the jar file.
 4. To run the program, open a terminal from the directory in which the jar file is located and type:
 ```java -jar causal-compare-x.x.x-jar-with-dependencies.jar --config sample_configuration.xml```
@@ -38,8 +38,8 @@ The first way is to use Tetrad to generate simulated datasets and run search alg
 	* A list of simulation to generate data.
 	* A list of search algorithms.
 	* A list of algorithm parameters.
-* A list of comparison statistics.
-* A list of properties for comparison tool.
+* A list of [comparison statistics](statistics.md).
+* A list of [comparison properties](properties.md).
 
 File structure for comparison running search algorithms on simulated data:
 ```xml
@@ -114,8 +114,8 @@ File structure for comparison running search algorithms on simulated data:
 	* The path to the true graph.
 	* The path to where Tetrad saves the simulated datasets.
 	* A list of result graphs produced by other algorithms.
-* A list of comparison statistics.
-* A list of properties for comparison tool.
+* A list of [comparison statistics](statistics.md).
+* A list of [comparison properties](properties.md).
 
 File structure for comparison using result graphs obtained from other search algorithms running on Tetrad simulated data:
 ```xml
