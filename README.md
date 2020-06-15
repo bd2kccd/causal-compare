@@ -1,3 +1,6 @@
+
+
+
 # causal-compare
 A command-line interface (CLI) for running algorithm comparison tool on simulated data.
 
@@ -35,7 +38,7 @@ There are two ways of using the comparison tool to compare search algorithms.
 
 The first way is to use Tetrad to generate simulated datasets and run search algorithms on those datasets.  You will need to specify the following in the XML configuration file:
 * A list of data and algorithms
-	* A list of simulation to generate data.
+	* A list of simulations to generate data.
 	* A list of search algorithms.
 	* A list of algorithm parameters.
 * A list of [comparison statistics](#comparison-statistics).
@@ -109,7 +112,7 @@ File structure for comparison running search algorithms on simulated data:
     
 </comparison>
 ```
- The second way is to compare result graphs obtained from other search algorithms.    Note that **the true graphs and result graphs have to be in a Tetrad format**.  You would still use Tetrad to generate simulated datasets for other search algorithms to run on.   You will need to specify the following in the XML configuration file:
+ The second way is to compare result graphs obtained from other search algorithms.    Note that **the true graphs and result graphs have to be in a [Tetrad graph format](#tetrad-graph-format)**.  You would still use Tetrad to generate simulated datasets for other search algorithms to run on.   You will need to specify the following in the XML configuration file:
 * A list of graphs
 	* The path to the true graph.
 	* The path to where Tetrad saves the simulated datasets.
@@ -234,3 +237,19 @@ The jar file, **causal-compare-x.x.x-jar-with-dependencies.jar**, is in the **ta
 |setSavePags            |True if PAGs (partial ancestral graphs) should be saved out with the results.                                                       |
 |setTabDelimitedTables  |True if tables should be output in tab-delimited form, false if they should be printed in space-delimited form with aligned columns.|
 |setComparisonGraph     |Sets the type of graph results are compared to. The options are: true DAG, pattern of the true DAG, PAG o the true DAG              |
+
+## Tetrad Graph Format
+A Tetrad graph.txt file contains the following:
+* A list of variables.
+* A list of edges.
+
+Below is an example of a Tetrad graph containg variables x, y and z:
+```
+Graph Nodes:
+x;y;z
+
+Graph Edges:
+1. x --> y
+2. z --> x
+3. z --> y
+```
