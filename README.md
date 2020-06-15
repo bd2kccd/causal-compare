@@ -112,11 +112,16 @@ File structure for comparison running search algorithms on simulated data:
     
 </comparison>
 ```
- The second way is to compare result graphs obtained from other search algorithms.    Note that **the true graphs and result graphs have to be in a [Tetrad graph format](#tetrad-graph-format)**.  You would still use Tetrad to generate simulated datasets for other search algorithms to run on.   You will need to specify the following in the XML configuration file:
+ The second way is to compare from result graphs.  You need to do the following:
+ 1. Run Tetrad to simulate some datasets and save them to a folder.  Click [here](http://cmu-phil.github.io/tetrad/manual/#simulation_box) for tutorial.
+ 2. Run search algorithms on other platforms on that datasets.
+ 3. Save the result graphs.
+
+Note that **the true graphs and result graphs have to be in a [Tetrad graph format](#tetrad-graph-format)**.    You will need to specify the following in the XML configuration file:
 * A list of graphs
 	* The path to the true graph.
-	* The path to where Tetrad saves the simulated datasets.
-	* A list of result graphs produced by other algorithms.
+	* The path to where the simulated datasets are saved.
+	* A list of result graphs.
 * A list of [comparison statistics](#comparison-statistics).
 * A list of [comparison properties](#comparison-properties).
 
