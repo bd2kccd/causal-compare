@@ -9,25 +9,24 @@
                 </simulation>
             </simulations>
             <algorithms>
-                <algorithm name="gfci">
+                <algorithm name="pc-all">
                     <test>fisher-z-test</test>
-                    <score>sem-bic</score>
                 </algorithm>
                 <algorithm name="fges">
                     <score>sem-bic</score>
                 </algorithm>
             </algorithms>
             <parameters>
-                <parameter name="numRuns">1</parameter>
-                <parameter name="numMeasures">4,6</parameter>
+                <parameter name="numRuns">10</parameter>
+                <parameter name="numMeasures">100</parameter>
                 <parameter name="avgDegree">4</parameter>
             </parameters>
         </search>
     </compareBy>
     <statistics>
         <statistic>adjacencyPrecision</statistic>
-        <statistic>arrowheadRecall</statistic>
         <statistic>adjacencyRecall</statistic>
+        <statistic>SHD</statistic>
     </statistics>
     <properties>
         <property name="showAlgorithmIndices">true</property>
