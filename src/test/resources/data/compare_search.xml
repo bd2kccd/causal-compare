@@ -14,10 +14,10 @@
             <algorithms>
                 <algorithm name="gfci">
                     <test>fisher-z-test</test>
-                    <score>sem-bic</score>
+                    <score>sem-bic-score</score>
                 </algorithm>
                 <algorithm name="fges">
-                    <score>sem-bic</score>
+                    <score>sem-bic-score</score>
                 </algorithm>
             </algorithms>
             <parameters>
