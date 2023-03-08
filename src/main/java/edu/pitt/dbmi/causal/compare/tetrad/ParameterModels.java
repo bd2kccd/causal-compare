@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 University of Pittsburgh.
+ * Copyright (C) 2020 University of Pittsburgh.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ package edu.pitt.dbmi.causal.compare.tetrad;
 import edu.cmu.tetrad.util.ParamDescription;
 import edu.cmu.tetrad.util.ParamDescriptions;
 import edu.cmu.tetrad.util.Parameters;
-import edu.pitt.dbmi.causal.compare.conf.ParameterConfig;
+import edu.pitt.dbmi.causal.compare.config.ParameterConfiguration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +78,7 @@ public final class ParameterModels {
                 : parameters.get(parameterNames.get(name.trim().toLowerCase()));
     }
 
-    public Parameters create(List<ParameterConfig> configs) {
+    public Parameters create(List<ParameterConfiguration> configs) {
         Parameters params = new Parameters();
 
         configs.forEach(e -> {

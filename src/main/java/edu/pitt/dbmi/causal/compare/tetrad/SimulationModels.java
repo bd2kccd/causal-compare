@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 University of Pittsburgh.
+ * Copyright (C) 2020 University of Pittsburgh.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import edu.cmu.tetrad.algcomparison.graph.RandomGraph;
 import edu.cmu.tetrad.algcomparison.simulation.Simulation;
 import edu.cmu.tetrad.algcomparison.simulation.Simulations;
 import edu.cmu.tetrad.data.simulation.LoadDataAndGraphs;
-import edu.pitt.dbmi.causal.compare.conf.SimulationConfig;
+import edu.pitt.dbmi.causal.compare.config.SimulationConfiguration;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
@@ -42,12 +42,20 @@ public final class SimulationModels {
     private SimulationModels() {
     }
 
-    public Simulations create(List<SimulationConfig> configs) throws Exception {
+    public Simulations create(String dir) throws Exception {
+        Simulations simulations = new Simulations();
+        simulations.add(new LoadDataAndGraphs(dir));
+
+        return simulations;
+    }
+
+    public Simulations create(List<SimulationConfiguration> configs) throws Exception {
         Simulations simulations = new Simulations();
 
-        for (SimulationConfig config : configs) {
+        for (SimulationConfiguration config : configs) {
             switch (config.getSource()) {
                 case directory:
+                    System.out.println(config.getPath());
                     simulations.add(new LoadDataAndGraphs(config.getPath()));
                     break;
                 case generate:

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 University of Pittsburgh.
+ * Copyright (C) 2020 University of Pittsburgh.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,14 +24,19 @@ import edu.cmu.tetrad.algcomparison.simulation.Simulations;
 import edu.cmu.tetrad.algcomparison.statistic.Statistics;
 import edu.cmu.tetrad.data.simulation.LoadDataAndGraphs;
 import edu.cmu.tetrad.util.Parameters;
-import edu.pitt.dbmi.causal.compare.conf.Configuration;
+import edu.pitt.dbmi.causal.compare.cli.CmdArgs;
+import edu.pitt.dbmi.causal.compare.cli.CmdParser;
+import edu.pitt.dbmi.causal.compare.cli.CmdParserException;
+import edu.pitt.dbmi.causal.compare.config.ComparisonConfiguration;
+import edu.pitt.dbmi.causal.compare.config.GraphConfiguration;
+import edu.pitt.dbmi.causal.compare.config.SearchConfiguration;
+import edu.pitt.dbmi.causal.compare.config.valid.ConfigurationValidations;
+import edu.pitt.dbmi.causal.compare.config.valid.ValidationException;
 import edu.pitt.dbmi.causal.compare.tetrad.AlgorithmModels;
 import edu.pitt.dbmi.causal.compare.tetrad.ComparisonProperties;
 import edu.pitt.dbmi.causal.compare.tetrad.ParameterModels;
 import edu.pitt.dbmi.causal.compare.tetrad.SimulationModels;
 import edu.pitt.dbmi.causal.compare.tetrad.StatisticModels;
-import edu.pitt.dbmi.causal.compare.valid.ConfigurationValidations;
-import edu.pitt.dbmi.causal.compare.valid.ValidationException;
 import java.io.BufferedOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
@@ -72,29 +77,33 @@ public class CausalCompareApplication {
         }
 
         try {
-            runComparisonTool(cmdArgs);
+            runSearchComparison(cmdArgs);
+            runGraphComparison(cmdArgs);
         } catch (Exception exception) {
             System.err.println(exception.getLocalizedMessage());
             System.exit(-1);
         }
     }
 
-    private static void runComparisonTool(CmdArgs cmdArgs) throws Exception {
-        Configuration config = cmdArgs.getConfiguration();
+    private static void runGraphComparison(CmdArgs cmdArgs) throws Exception {
+        ComparisonConfiguration compareConfig = cmdArgs.getConfiguration();
+        GraphConfiguration graphConfig = compareConfig.getCompareBy().getGraph();
+        if (graphConfig == null) {
+            return;
+        }
 
-        Algorithms algorithms = AlgorithmModels.getInstance().create(config.getAlgorithmConfigs());
-        Simulations simulations = SimulationModels.getInstance().create(config.getSimulationConfigs());
-        Statistics statistics = StatisticModels.getInstance().create(config.getStatistics());
-        Parameters parameters = ParameterModels.getInstance().create(config.getParameters());
+        Simulations simulations = SimulationModels.getInstance().create(graphConfig.getSimulationPath());
+        Algorithms algorithms = AlgorithmModels.getInstance().create(graphConfig);
+        Statistics statistics = StatisticModels.getInstance().create(compareConfig.getStatistics());
+        Parameters parameters = new Parameters();
 
-        String outDir = cmdArgs.getOutDirectory().toString();
-        Path dirOut = Paths.get(outDir);
+        Path dirOut = cmdArgs.getOutDirectory();
         if (Files.notExists(dirOut)) {
             Files.createDirectory(dirOut);
         }
 
         String prefix = cmdArgs.getFileNamePrefix();
-        Path outTxtFile = Paths.get(outDir, String.format("%s.stdout.txt", prefix));
+        Path outTxtFile = Paths.get(dirOut.toString(), String.format("%s.stdout.txt", prefix));
         try (PrintStream out = new PrintStream(new BufferedOutputStream(Files.newOutputStream(outTxtFile, StandardOpenOption.CREATE)), true)) {
             parameters.set("printStream", out);
 
@@ -103,8 +112,40 @@ public class CausalCompareApplication {
                     .map(e -> (LoadDataAndGraphs) e)
                     .forEach(e -> e.setStdout(out));
 
-            Comparison comparison = ComparisonProperties.getInstance().create(config.getComparisonProperties());
-            comparison.compareFromSimulations(cmdArgs.getOutDirectory().toString(), simulations, String.format("%s.stat.txt", prefix), algorithms, statistics, parameters);
+            Comparison comparison = ComparisonProperties.getInstance().create(compareConfig.getProperties());
+            comparison.compareFromSimulations(dirOut.toString(), simulations, String.format("%s.stat.txt", prefix), algorithms, statistics, parameters);
+        }
+    }
+
+    private static void runSearchComparison(CmdArgs cmdArgs) throws Exception {
+        ComparisonConfiguration compareConfig = cmdArgs.getConfiguration();
+        SearchConfiguration searchConfig = compareConfig.getCompareBy().getSearch();
+        if (searchConfig == null) {
+            return;
+        }
+
+        Algorithms algorithms = AlgorithmModels.getInstance().create(searchConfig.getAlgorithms());
+        Simulations simulations = SimulationModels.getInstance().create(searchConfig.getSimulations());
+        Statistics statistics = StatisticModels.getInstance().create(compareConfig.getStatistics());
+        Parameters parameters = ParameterModels.getInstance().create(searchConfig.getParameters());
+
+        Path dirOut = cmdArgs.getOutDirectory();
+        if (Files.notExists(dirOut)) {
+            Files.createDirectory(dirOut);
+        }
+
+        String prefix = cmdArgs.getFileNamePrefix();
+        Path outTxtFile = Paths.get(dirOut.toString(), String.format("%s.stdout.txt", prefix));
+        try (PrintStream out = new PrintStream(new BufferedOutputStream(Files.newOutputStream(outTxtFile, StandardOpenOption.CREATE)), true)) {
+            parameters.set("printStream", out);
+
+            simulations.getSimulations().stream()
+                    .filter(e -> e instanceof LoadDataAndGraphs)
+                    .map(e -> (LoadDataAndGraphs) e)
+                    .forEach(e -> e.setStdout(out));
+
+            Comparison comparison = ComparisonProperties.getInstance().create(compareConfig.getProperties());
+            comparison.compareFromSimulations(dirOut.toString(), simulations, String.format("%s.stat.txt", prefix), algorithms, statistics, parameters);
         }
     }
 
