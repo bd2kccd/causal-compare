@@ -19,7 +19,7 @@
 package edu.pitt.dbmi.causal.compare.util;
 
 import edu.cmu.tetrad.graph.Graph;
-import edu.cmu.tetrad.graph.GraphUtils;
+import edu.cmu.tetrad.graph.GraphPersistence;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -40,7 +40,7 @@ public final class FileUtils {
 
     public static Graph readGraph(Path file) throws IOException {
         try (Reader reader = Files.newBufferedReader(file)) {
-            return GraphUtils.readerToGraphTxt(reader);
+            return GraphPersistence.readerToGraphTxt(reader);
         }
     }
 
