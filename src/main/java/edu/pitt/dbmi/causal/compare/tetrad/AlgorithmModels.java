@@ -53,11 +53,11 @@ public final class AlgorithmModels extends AbstractAnnotatedClassFactory<Algorit
     }
 
     public boolean requireIndependenceTest(Class clazz) {
-        return AlgorithmAnnotations.getInstance().requireIndependenceTest(clazz);
+        return AlgorithmAnnotations.getInstance().requiresIndependenceTest(clazz);
     }
 
     public boolean requireScore(Class clazz) {
-        return AlgorithmAnnotations.getInstance().requireScore(clazz);
+        return AlgorithmAnnotations.getInstance().requiresScore(clazz);
     }
 
     public Algorithm create(AlgorithmConfiguration config) throws ComparisonException {
